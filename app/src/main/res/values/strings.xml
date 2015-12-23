@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">NewsUFPI</string>
+    <string name="title_activity_main">News UFPI</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_search">Search</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_share">Share</string>
+
+
+    <string name="menu_notice">Noticias</string>
+    <string name="menu_event">Eventos</string>
+    <string name="menu_lembretes">Lembretes</string>
+    <string name="menu_ufpiMaps">UFPI Maps</string>
+    <string name="menu_contats">Contatos</string>
+
+
+</resources>
