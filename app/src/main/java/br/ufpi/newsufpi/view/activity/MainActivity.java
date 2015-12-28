@@ -1,7 +1,11 @@
 package br.ufpi.newsufpi.view.activity;
 
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,10 +19,12 @@ import java.util.List;
 import br.ufpi.newsufpi.R;
 import br.ufpi.newsufpi.view.adapter.NavDrawerMenuAdapter;
 import br.ufpi.newsufpi.view.adapter.NavDrawerMenuItem;
+import br.ufpi.newsufpi.view.fragments.NoticiasFragment;
 import livroandroid.lib.fragment.NavigationDrawerFragment;
 
 /**
- * classe Principal.
+ * Activity Principal
+ * @author thasciano
  */
 public class MainActivity extends BaseActivity implements
         NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -37,7 +43,6 @@ public class MainActivity extends BaseActivity implements
         //Toolbar funcionando como ActionBar
         setUpToolbar();
 
-
         // Navigation Drawer 4
         mNavDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.nav_drawer_fragment);
@@ -47,17 +52,19 @@ public class MainActivity extends BaseActivity implements
         drawerLayout.setStatusBarBackground(R.color.colorPrimary);
         mNavDrawerFragment.setUp(drawerLayout);
 
-       /* //Nav Drawer
-        mNavDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().
-                findFragmentById(R.id.drawer_layout);
-        //Configura o drawer layout
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mNavDrawerFragment.setUp(drawerLayout);*/
-
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });*/
     }
 
+
     /**
-     * Opções de menu.
+     * Opções de menu Toolbar.
      * @param menu
      * @return
      */
@@ -66,14 +73,14 @@ public class MainActivity extends BaseActivity implements
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         //Search View
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) item.getActionView();
-//        searchView.setOnQueryTextListener(onSearch());
+        SearchView searchView = (SearchView) MenuItemCompat.
+                getActionView(menu.findItem(R.id.action_search));
+        searchView.setOnQueryTextListener(onSearch());
         return true;
     }
 
     /**
-     * Configurações para a aplicação tratar o evento Serach View.
+     * Configurações para a aplicação tratar o evento Search View.
      * @return
      */
     private SearchView.OnQueryTextListener onSearch() {
@@ -100,16 +107,6 @@ public class MainActivity extends BaseActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_search) {
-            toast("Clicou no Search!");
-            return true;
-        } else if (id == R.id.action_refresh) {
-            toast("Clicou no Refresh!");
-            return true;
-        } else if (id == R.id.action_settings) {
-            toast("Clicou no Settings!");
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -154,8 +151,24 @@ public class MainActivity extends BaseActivity implements
 
         // Seleciona a linha
         this.listAdapter.setSelected(position, true);
+        if (position == 0) {
+            //replaceFragment(new CarrosFragment());
+            toast(" 1 Clicou no item: " + getString(selectedItem.title));
+            replaceFragment(new NoticiasFragment());
+        } else if (position == 1) {
+            toast(" 2 Clicou no item: " + getString(selectedItem.title));
+//            replaceFragment(new SiteLivroFragment());
+        } else {
+            Log.e("NewsUFPI", "Item de menu inválido");
+        }
 
-        toast("Clicou no item: " + getString(selectedItem.title));
+    }
 
+    /**
+     * Adiciona o fragment no centro da tela.
+     * @param frag
+     */
+    private void replaceFragment(Fragment frag) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.nav_drawer_container, frag, "TAG").commit();
     }
 }

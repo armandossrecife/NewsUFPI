@@ -1,6 +1,8 @@
 package br.ufpi.newsufpi.model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  * Created by thasciano on 23/12/15.
  */
 public class Noticia implements Serializable {
-
+    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     private Integer id;
     private String title;
     private String content;
@@ -63,12 +65,21 @@ public class Noticia implements Serializable {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(String date) {
+        try {
+            this.date = (Date)format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<String> getImages() {
         return images;
+    }
+
+    public void setImagens(String images) {
+        this.images.add(images);
+//        this.images = images;
     }
 
     public void setImages(List<String> images) {

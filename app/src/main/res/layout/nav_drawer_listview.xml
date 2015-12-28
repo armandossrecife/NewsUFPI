@@ -5,7 +5,14 @@
     android:orientation="vertical">
 
     <!-- Cabeçalho para o Drawer (Material Design) -->
-    <include layout="@layout/nav_drawer_listview_header" />
+    <!--<include layout="@layout/nav_drawer_listview_header" />-->
+    <ImageView
+        android:id="@+id/imgUserBackground"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/userBackground_layout_height"
+        android:contentDescription="@string/empty"
+        android:src="@drawable/fachada_ufpi"
+        android:scaleType="fitXY" />
 
     <ListView
         android:id="@+id/listView"
