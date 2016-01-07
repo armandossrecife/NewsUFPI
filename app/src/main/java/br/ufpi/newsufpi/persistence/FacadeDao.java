@@ -43,7 +43,7 @@ public class FacadeDao extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_NOTICE = "CREATE TABLE "
             + TABLE_NAME_NOTICE + "( " + COL_ID_NOTICE
             + " INTEGER PRIMARY KEY, " + COL_TITLE_NOTICE + " TEXT , "
-            + COL_CONTENT_NOTICE + " TEXT , " + COL_DATE_NOTICE + " TEXT , "
+            + COL_CONTENT_NOTICE + " TEXT , " + COL_DATE_NOTICE + " DATETIME, "
             + COL_IMAGE_NOTICE + " TEXT );";
 
     private static final String CREATE_TABLE_EVENT = "CREATE TABLE "

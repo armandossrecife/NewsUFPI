@@ -14,7 +14,7 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity {
      */
     protected void setUpToolbar() {
         // fazer import android.support.v7.widget.Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.i_toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }

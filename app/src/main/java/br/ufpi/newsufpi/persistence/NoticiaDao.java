@@ -7,8 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.ufpi.newsufpi.model.Noticia;
@@ -19,7 +19,6 @@ import br.ufpi.newsufpi.model.Noticia;
 public class NoticiaDao extends FacadeDao {
 
     private static NoticiaDao noticiaDao;
-
     /**
      * @param context
      * @return
@@ -51,19 +50,17 @@ public class NoticiaDao extends FacadeDao {
                 COL_DATE_NOTICE, COL_IMAGE_NOTICE };
         Cursor cursor = getWritableDatabase().query(TABLE_NAME_NOTICE, cols,
                 null, null, null, null, COL_DATE_NOTICE + " DESC");
-        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
         while (cursor.moveToNext()) {
-            Noticia noticia;
-            try {
-                noticia = new Noticia(cursor.getInt(0), cursor.getString(1),
+            Noticia noticia = new Noticia(
+                        cursor.getInt(0),
+                        cursor.getString(1),
                         cursor.getString(2),
-                        formater.parse(cursor.getString(3)));
+                        new Date(cursor.getLong(3))
+                );
                 List<String> imagens = this.listImages(noticia);
                 noticia.setImages(imagens);
                 notices.add(noticia);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+
         }
         cursor.close();
         return notices;
@@ -84,11 +81,11 @@ public class NoticiaDao extends FacadeDao {
                         + COL_TITLE_NOTICE + " LIKE '%" + text + "%' OR "
                         + COL_CONTENT_NOTICE + " LIKE '%" + text
                         + "%' ORDER BY " + COL_DATE_NOTICE + " DESC;", null);
-        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+
         while (cursor.moveToNext()) {
             Noticia noticia = new Noticia(cursor.getInt(0),
                     cursor.getString(1), cursor.getString(2),
-                    formater.parse(cursor.getString(3)));
+                    new Date(cursor.getLong(3)));
             List<String> imagens = this.listImages(noticia);
             noticia.setImages(imagens);
             noticias.add(noticia);
@@ -111,7 +108,7 @@ public class NoticiaDao extends FacadeDao {
                 values.put(COL_ID_NOTICE, notice.getId());
                 values.put(COL_TITLE_NOTICE, notice.getTitle());
                 values.put(COL_CONTENT_NOTICE, notice.getContent());
-                values.put(COL_DATE_NOTICE, String.valueOf(notice.getDate()));
+                values.put(COL_DATE_NOTICE, notice.getDate().getTime());
                 insertImages(notice, db);
                 db.insert(TABLE_NAME_NOTICE, null, values);
             }
@@ -166,14 +163,18 @@ public class NoticiaDao extends FacadeDao {
     @SuppressLint("SimpleDateFormat")
     public Noticia hasNotice(Integer noticiaId) throws ParseException {
         Noticia noticia;
-        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+
         Cursor cursor = getWritableDatabase().rawQuery(
                 "SELECT * FROM " + TABLE_NAME_NOTICE + " WHERE "
                         + COL_ID_NOTICE + "= '" + noticiaId + "';", null);
-        System.out.println(cursor.moveToFirst());
+
         if (cursor.moveToFirst()) {
-            noticia = new Noticia(cursor.getInt(0), cursor.getString(1),
-                    cursor.getString(2), formater.parse(cursor.getString(3)));
+            noticia = new Noticia(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    new Date(cursor.getLong(3))
+            );
             return noticia;
         }
         return null;

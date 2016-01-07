@@ -14,4 +14,5 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorControlHighlight">@color/control_highlight</item>
     </style>
+
 </resources>

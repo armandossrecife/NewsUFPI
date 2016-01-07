@@ -153,7 +153,7 @@ public class MainActivity extends BaseActivity implements
         this.listAdapter.setSelected(position, true);
         if (position == 0) {
             //replaceFragment(new CarrosFragment());
-            toast(" 1 Clicou no item: " + getString(selectedItem.title));
+            //toast(" 1 Clicou no item: " + getString(selectedItem.title));
             replaceFragment(new NoticiasFragment());
         } else if (position == 1) {
             toast(" 2 Clicou no item: " + getString(selectedItem.title));

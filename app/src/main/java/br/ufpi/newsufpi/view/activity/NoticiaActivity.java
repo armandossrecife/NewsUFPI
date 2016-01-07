@@ -20,13 +20,13 @@ public class NoticiaActivity extends BaseActivity {
         // Configura a Toolbar como a action bar
         setUpToolbar();
 
-        // Atualiza o carro no fragment
-        NoticiaFragment nf = (NoticiaFragment) getSupportFragmentManager().findFragmentById(R.id.NoticiaFragment);
+        // Atualiza a noticia no fragment
+        NoticiaFragment nf = (NoticiaFragment) getSupportFragmentManager().findFragmentById(R.id.NoticiaDetalhadaFragment);
         Noticia n = (Noticia) getIntent().getSerializableExtra("noticia");
         nf.setNoticia(n);
 
         // Título da toolbar e botão up navigation
-        getSupportActionBar().setTitle(n.getTitle());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setTitle(n.getTitle());
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

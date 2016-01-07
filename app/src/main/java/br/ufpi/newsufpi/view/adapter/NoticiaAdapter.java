@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import br.ufpi.newsufpi.R;
@@ -38,7 +41,7 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.Noticias
 
     @Override
     public NoticiasViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Infla a view do layout
+        // Infla a view do layout1
         View view = LayoutInflater.from(context).inflate(R.layout.adapter_noticia, viewGroup, false);
 
         CardView cardView = (CardView) view.findViewById(R.id.card_view);
@@ -54,19 +57,23 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.Noticias
         Noticia n = noticias.get(position);
 
         holder.tNome.setText(n.getTitle());
-        holder.progress.setVisibility(View.VISIBLE);
+        if(n.getImages().size()>0) {
+            holder.progress.setVisibility(View.VISIBLE);
+            holder.img.setVisibility(View.VISIBLE);
 
-       /* Picasso.with(context).load(n.getImages().get(0)).fit().into(holder.img, new Callback() {
-            @Override
-            public void onSuccess() {
-                holder.progress.setVisibility(View.GONE);
-            }
 
-            @Override
-            public void onError() {
-                holder.progress.setVisibility(View.GONE);
-            }
-        });*/
+            Picasso.with(context).load(n.getImages().get(0)).fit().into(holder.img, new Callback() {
+                @Override
+                public void onSuccess() {
+                    holder.progress.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onError() {
+                    holder.progress.setVisibility(View.GONE);
+                }
+            });
+        }
 
         // Click
         if (noticiaOnClickListener != null) {

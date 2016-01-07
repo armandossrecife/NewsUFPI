@@ -30,7 +30,7 @@
             android:parentActivityName=".view.activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.activity.MainActivity" />
+                android:value="br.ufpi.newsufpi.view.activity.MainActivity" />
         </activity>
     </application>
 

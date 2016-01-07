@@ -3,6 +3,7 @@ package br.ufpi.newsufpi.model;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Noticia implements Serializable {
     private List<String> images;
 
     public Noticia() {
+        images =  new ArrayList<String>();
     }
 
     public Noticia(Integer id, String title,
