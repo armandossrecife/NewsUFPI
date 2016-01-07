@@ -26,7 +26,7 @@ public class NoticiaActivity extends BaseActivity {
         nf.setNoticia(n);
 
         // Título da toolbar e botão up navigation
-        //getSupportActionBar().setTitle(n.getTitle());
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(n.getTitle());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
