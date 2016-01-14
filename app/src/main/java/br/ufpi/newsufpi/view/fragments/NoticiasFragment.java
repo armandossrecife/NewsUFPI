@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import br.ufpi.newsufpi.R;
+import br.ufpi.newsufpi.controller.NoticiaController;
 import br.ufpi.newsufpi.model.Noticia;
-import br.ufpi.newsufpi.util.ServerConnection;
 import br.ufpi.newsufpi.view.activity.NoticiaActivity;
 import br.ufpi.newsufpi.view.adapter.NoticiaAdapter;
 import livroandroid.lib.fragment.BaseFragment;
@@ -28,12 +28,14 @@ import livroandroid.lib.utils.AndroidUtils;
 public class NoticiasFragment extends BaseFragment {
     protected RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
-    ServerConnection serverConnection;
+
     List<Noticia> noticias;
     private String tipo;
     private SwipeRefreshLayout swipeLayout;
     Snackbar snackbar;
     private View view;
+    private NoticiaController noticiaController;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,7 @@ public class NoticiasFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_noticias, container, false);
 
-        serverConnection = new ServerConnection(getActivity());
+
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -79,8 +81,6 @@ public class NoticiasFragment extends BaseFragment {
                 } else {
                     snackbar = Snackbar.make(view, R.string.error_conexao_indisponivel, Snackbar.LENGTH_LONG);
                     snackbar.show();
-                    //alert(R.string.error_conexao_indisponivel);
-
                 }
             }
         };
@@ -89,8 +89,7 @@ public class NoticiasFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        // Por padrão busca os carros do banco de dados.
+        // Por padrão busca os noticias do banco de dados.
         taskCarros(false);
     }
 
@@ -104,7 +103,6 @@ public class NoticiasFragment extends BaseFragment {
             @Override
             public void onClickNoticia(View view, int idx) {
                 Noticia n = noticias.get(idx);
-                //Toast.makeText(getContext(), "Noticia: " +n.getTitle(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), NoticiaActivity.class);
                 intent.putExtra("noticia", n);
                 startActivity(intent);
@@ -124,15 +122,15 @@ public class NoticiasFragment extends BaseFragment {
         }
 
         /**
-         * Busca os carros em background (Thread)
+         * Busca os noticias em background (Thread)
          * @return
          * @throws Exception
          */
         @Override
         public List<Noticia> execute() throws Exception {
             Thread.sleep(500);
-            // Busca os carros em background (Thread)
-            return serverConnection.getListaDeNoticias(getContext());
+            noticiaController = new NoticiaController(getActivity());
+            return noticiaController.listAllNotices(getActivity());
         }
 
         @Override
@@ -144,16 +142,13 @@ public class NoticiasFragment extends BaseFragment {
 
                 snackbar = Snackbar.make(view, "update " + noticias.size() + " noticias.", Snackbar.LENGTH_LONG);
                 snackbar.show();
-                //toast("update " + noticias.size() + " noticias.");
             }
         }
 
         @Override
         public void onError(Exception e) {
-
             snackbar = Snackbar.make(view, "Ocorreu algum erro ao buscar os dados.", Snackbar.LENGTH_LONG);
             snackbar.show();
-            //alert("Ocorreu algum erro ao buscar os dados.");
         }
 
         @Override

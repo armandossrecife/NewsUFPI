@@ -7,6 +7,7 @@ import java.util.List;
 
 import br.ufpi.newsufpi.model.Noticia;
 import br.ufpi.newsufpi.persistence.FacadeDao;
+import br.ufpi.newsufpi.util.ServerConnection;
 
 /**
  * Created by thasciano on 23/12/15.
@@ -18,8 +19,21 @@ public class NoticiaController {
         this.facadeDao = FacadeDao.getInstance(context);
     }
 
-    public List<Noticia> listAllNotices(){
+    public List<Noticia> listAllNotices(Context context){
+        updateAllNotices(context);
         return facadeDao.listAllNotices();
+    }
+
+    public void updateAllNotices(Context context){
+        ServerConnection serverConnection = new ServerConnection(context);
+        List<Noticia> not = serverConnection.getListaDeNoticias();
+        if(not.size() > 0){
+            try {
+                facadeDao.insertNotices(not);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
