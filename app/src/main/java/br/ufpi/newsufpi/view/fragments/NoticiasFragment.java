@@ -30,7 +30,6 @@ public class NoticiasFragment extends BaseFragment {
     private LinearLayoutManager mLayoutManager;
 
     List<Noticia> noticias;
-    private String tipo;
     private SwipeRefreshLayout swipeLayout;
     Snackbar snackbar;
     private View view;
@@ -39,9 +38,7 @@ public class NoticiasFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            this.tipo = getArguments().getString("tipo");
-        }
+
     }
 
     @Override
@@ -78,6 +75,7 @@ public class NoticiasFragment extends BaseFragment {
             public void onRefresh() {
                 if (AndroidUtils.isNetworkAvailable(getContext())) {
                     taskCarros(true);
+
                 } else {
                     snackbar = Snackbar.make(view, R.string.error_conexao_indisponivel, Snackbar.LENGTH_LONG);
                     snackbar.show();
@@ -129,8 +127,10 @@ public class NoticiasFragment extends BaseFragment {
         @Override
         public List<Noticia> execute() throws Exception {
             Thread.sleep(500);
-            noticiaController = new NoticiaController(getActivity());
-            return noticiaController.listAllNotices(getActivity());
+
+            noticiaController = new NoticiaController(getContext());
+            return noticiaController.listAllNotices(getContext());
+
         }
 
         @Override

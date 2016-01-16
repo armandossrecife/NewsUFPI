@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -111,6 +112,7 @@ public class NoticiaDao extends FacadeDao {
                 values.put(COL_DATE_NOTICE, notice.getDate().getTime());
                 insertImages(notice, db);
                 db.insert(TABLE_NAME_NOTICE, null, values);
+                Log.i("Save", notice.getTitle());
             }
         }
         db.close();
