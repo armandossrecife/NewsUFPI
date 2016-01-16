@@ -16,7 +16,7 @@ import livroandroid.lib.fragment.BaseFragment;
  * Created by thasciano on 24/12/15.
  */
 public class NoticiaFragment extends BaseFragment {
-    private Noticia noticia;
+    protected Noticia noticia;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

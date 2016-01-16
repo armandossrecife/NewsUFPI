@@ -61,7 +61,6 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.Noticias
             holder.progress.setVisibility(View.VISIBLE);
             holder.img.setVisibility(View.VISIBLE);
 
-
             Picasso.with(context).load(n.getImages().get(0)).fit().into(holder.img, new Callback() {
                 @Override
                 public void onSuccess() {

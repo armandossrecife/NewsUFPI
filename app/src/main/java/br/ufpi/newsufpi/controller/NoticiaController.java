@@ -7,12 +7,13 @@ import java.util.List;
 
 import br.ufpi.newsufpi.model.Noticia;
 import br.ufpi.newsufpi.persistence.FacadeDao;
+import br.ufpi.newsufpi.util.ServerCallbackNoticia;
 import br.ufpi.newsufpi.util.ServerConnection;
 
 /**
  * Created by thasciano on 23/12/15.
  */
-public class NoticiaController {
+public class NoticiaController implements ServerCallbackNoticia {
     private FacadeDao facadeDao;
 
     public NoticiaController(Context context) {
@@ -26,14 +27,8 @@ public class NoticiaController {
 
     public void updateAllNotices(Context context){
         ServerConnection serverConnection = new ServerConnection(context);
-        List<Noticia> not = serverConnection.getListaDeNoticias();
-        if(not.size() > 0){
-            try {
-                facadeDao.insertNotices(not);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
+        serverConnection.getListaDeNoticias(this);
+
     }
 
     /**
@@ -53,5 +48,16 @@ public class NoticiaController {
      */
     public void insertNotices(List<Noticia> notices) throws ParseException{
         facadeDao.insertNotices(notices);
+    }
+
+    @Override
+    public void onSuccess(List<Noticia> result) {
+        if(result.size() > 0){
+            try {
+                facadeDao.insertNotices(result);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
