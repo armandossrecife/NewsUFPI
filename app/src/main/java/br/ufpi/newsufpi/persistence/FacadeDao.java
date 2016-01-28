@@ -98,8 +98,8 @@ public class FacadeDao extends SQLiteOpenHelper {
      * @param noticias
      * @throws ParseException
      */
-    public void insertNotices(List<Noticia> noticias) throws ParseException {
-        noticiaDao.insertNotices(noticias);
+    public int insertNotices(List<Noticia> noticias) throws ParseException {
+        return noticiaDao.insertNotices(noticias);
     }
 
     /**

@@ -11,6 +11,9 @@ import java.util.List;
  * Created by thasciano on 23/12/15.
  */
 public class Noticia implements Serializable {
+    //gerador de json: http://www.json-generator.com/
+    public static final String NOTICIA_URL = "http://www.json-generator.com/api/json/get/cfFSkmKwGG?indent=2";
+
     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     private Integer id;
     private String title;
@@ -61,6 +64,11 @@ public class Noticia implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+
+    public String getDateString() {
+        return format.format(getDate());
     }
 
     public Date getDate() {

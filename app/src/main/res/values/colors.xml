@@ -17,7 +17,7 @@
     <color name="gray">#eee</color>
 
     <!-- SwipeRefreshLayout -->
-    <color name="refresh_progress_1">#33B5E5</color>
-    <color name="refresh_progress_2">#99CC00</color>
-    <color name="refresh_progress_3">#CC0000</color>
+    <color name="refresh_progress_1">#00f</color>
+    <color name="refresh_progress_2">#114199</color>
+    <color name="refresh_progress_3">#3f68b1</color>
 </resources>

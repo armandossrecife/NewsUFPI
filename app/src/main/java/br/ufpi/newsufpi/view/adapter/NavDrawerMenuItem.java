@@ -25,9 +25,10 @@ public class NavDrawerMenuItem {
         List<NavDrawerMenuItem> list = new ArrayList<NavDrawerMenuItem>();
         list.add(new NavDrawerMenuItem(R.string.menu_notice, R.mipmap.ic_newspaper_black_48dp));
         list.add(new NavDrawerMenuItem(R.string.menu_event, R.mipmap.ic_calendar_black_48dp));
-        list.add(new NavDrawerMenuItem(R.string.menu_lembretes, R.mipmap.ic_calendar_clock_black_48dp));
-        list.add(new NavDrawerMenuItem(R.string.menu_ufpiMaps, R.mipmap.ic_calendar_clock_black_48dp));
-        list.add(new NavDrawerMenuItem(R.string.menu_contats, R.mipmap.ic_calendar_clock_black_48dp));
+        list.add(new NavDrawerMenuItem(R.string.menu_lembretes, R.mipmap.ic_alarm_black_48dp));
+        list.add(new NavDrawerMenuItem(R.string.menu_favoritos, R.mipmap.ic_grade_black_48dp));
+        //list.add(new NavDrawerMenuItem(R.string.menu_ufpiMaps, R.mipmap.ic_calendar_clock_black_48dp));
+        list.add(new NavDrawerMenuItem(R.string.menu_contats, R.mipmap.ic_help_black_48dp));
         return list;
     }
 }

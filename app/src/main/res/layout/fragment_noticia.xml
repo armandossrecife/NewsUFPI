@@ -32,6 +32,18 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="6dp"/>
 
+            <TextView
+                android:id="@+id/date_n"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginRight="6dp"
+                android:textSize="10sp"
+                android:textColor="@color/colorPrimary"
+                android:text="data."
+                android:textStyle="bold"
+                android:layout_gravity="right" />
+
             <ImageView
             android:id="@+id/img_noticia"
             android:layout_width="@dimen/foto_noticia_width"

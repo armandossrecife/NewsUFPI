@@ -2,7 +2,6 @@ package br.ufpi.newsufpi.view.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,11 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.text.ParseException;
+import java.util.Arrays;
 import java.util.List;
 
 import br.ufpi.newsufpi.R;
 import br.ufpi.newsufpi.controller.NoticiaController;
 import br.ufpi.newsufpi.model.Noticia;
+import br.ufpi.newsufpi.util.RequestData;
+import br.ufpi.newsufpi.util.ServerConnection;
+import br.ufpi.newsufpi.util.Transaction;
 import br.ufpi.newsufpi.view.activity.NoticiaActivity;
 import br.ufpi.newsufpi.view.adapter.NoticiaAdapter;
 import livroandroid.lib.fragment.BaseFragment;
@@ -25,7 +32,7 @@ import livroandroid.lib.utils.AndroidUtils;
 /**
  * Created by thasciano on 24/12/15.
  */
-public class NoticiasFragment extends BaseFragment {
+public class NoticiasFragment extends BaseFragment implements Transaction {
     protected RecyclerView recyclerView;
     protected LinearLayoutManager mLayoutManager;
 
@@ -45,8 +52,6 @@ public class NoticiasFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_noticias, container, false);
 
-
-
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -61,41 +66,16 @@ public class NoticiasFragment extends BaseFragment {
                 R.color.refresh_progress_2,
                 R.color.refresh_progress_3);
 
+        noticiaController = new NoticiaController(getContext());
+        OnRefreshListener().onRefresh();
+
         return view;
     }
 
-
     /**
-     * Atualiza ao fazer o gesto Swipe To Refresh
+     * Espera o toque para poder abrir o detalhamento da noticia.
      * @return
      */
-    private SwipeRefreshLayout.OnRefreshListener OnRefreshListener() {
-        return new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (AndroidUtils.isNetworkAvailable(getContext())) {
-                    taskCarros(true);
-
-                } else {
-                    snackbar = Snackbar.make(view, R.string.error_conexao_indisponivel, Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                }
-            }
-        };
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // Por padrão busca os noticias do banco de dados.
-        taskCarros(false);
-    }
-
-    private void taskCarros(boolean pullToRefresh) {
-        startTask("noticias", new GetNoticiasTask(pullToRefresh), pullToRefresh ? R.id.swipeToRefresh : R.id.progress);
-    }
-
-
     private NoticiaAdapter.NoticiaOnClickListener onClickNoticia() {
         return new NoticiaAdapter.NoticiaOnClickListener(){
             @Override
@@ -109,50 +89,91 @@ public class NoticiasFragment extends BaseFragment {
     }
 
     /**
-     * Classe para gerenciar o refresh de noticias.
-     * @author thasciano
+     * Atualiza ao fazer o gesto Swipe To Refresh.
+     * Faz a conexão com o servidor.
+     * @return
      */
-    private class GetNoticiasTask implements TaskListener<List<Noticia>> {
-        private boolean refresh;
-
-        public GetNoticiasTask(boolean refresh) {
-            this.refresh = refresh;
-        }
-
-        /**
-         * Busca os noticias em background (Thread)
-         * @return
-         * @throws Exception
-         */
-        @Override
-        public List<Noticia> execute() throws Exception {
-            Thread.sleep(500);
-
-            noticiaController = new NoticiaController(getContext());
-            return noticiaController.listAllNotices(getContext());
-
-        }
-
-        @Override
-        public void updateView(List<Noticia> noticias) {
-            if (noticias != null) {
-                NoticiasFragment.this.noticias = noticias;
-                // Atualiza a view na UI Thread
-                recyclerView.setAdapter(new NoticiaAdapter(getContext(), noticias, onClickNoticia()));
-
-                snackbar = Snackbar.make(view, "update " + noticias.size() + " noticias.", Snackbar.LENGTH_LONG);
-                snackbar.show();
+    private SwipeRefreshLayout.OnRefreshListener OnRefreshListener() {
+        return new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (AndroidUtils.isNetworkAvailable(getContext())) {
+                    (new ServerConnection(getContext(), NoticiasFragment.this)).execute();
+                } else {
+                    updateView(noticiaController.listAllNotices(), -1);
+                    swipeLayout.setRefreshing(false);
+                }
             }
-        }
+        };
+    }
 
-        @Override
-        public void onError(Exception e) {
+    /**
+     * Atualiza o adapter com as noticias.
+     * @param noticias
+     * @param count
+     */
+    public void updateView(List<Noticia> noticias, int count) {
+        if (noticias != null) {
+            NoticiasFragment.this.noticias = noticias;
+
+            recyclerView.setAdapter(new NoticiaAdapter(getContext(), noticias, onClickNoticia()));
+            swipeLayout.setRefreshing(false);
+            if(count > 0) {
+                snackbar = Snackbar.make(view, noticias.size() + " novas noticias foram baixadas.", Snackbar.LENGTH_LONG);
+            }else if(count == -1) {
+                snackbar = Snackbar.make(view, R.string.error_conexao_indisponivel, Snackbar.LENGTH_LONG);
+            }else{
+                snackbar = Snackbar.make(view, " Não há novas noticias.", Snackbar.LENGTH_LONG);
+            }
+            snackbar.show();
+
+        }
+    }
+
+    /**
+     * Ativa a animação do swipe
+     */
+    @Override
+    public void doBefore() {
+        swipeLayout.setRefreshing(true);
+    }
+
+    /**
+     * Recebe a resposta do servidor e trata a resposta para ser salva no banco.
+     * @param answer
+     */
+    @Override
+    public void doAfter(String answer) {
+
+        Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+        Noticia[] fromJson =  gson.fromJson(answer, Noticia[].class);
+        noticias = Arrays.asList(fromJson);
+        if (noticias.size() > 0) {
+            int count = 0;
+            try {
+                count = noticiaController.insertNotices(noticias);
+            } catch (ParseException e) {
+                snackbar = Snackbar.make(view, "Ocorreu algum erro ao salvar os dados.", Snackbar.LENGTH_LONG);
+                snackbar.show();
+                e.printStackTrace();
+            }
+
+            updateView(noticiaController.listAllNotices(), count);
+
+        }else{
             snackbar = Snackbar.make(view, "Ocorreu algum erro ao buscar os dados.", Snackbar.LENGTH_LONG);
             snackbar.show();
         }
 
-        @Override
-        public void onCancelled(String s) {
-        }
     }
+
+    /**
+     * Requisita a url para download.
+     * @return
+     */
+    @Override
+    public RequestData getRequestData() {
+        return (new RequestData(Noticia.NOTICIA_URL, "an-get-notice", Noticia.class) );
+    }
+
 }

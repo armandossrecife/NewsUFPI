@@ -32,7 +32,7 @@ public class NoticiaFragment extends BaseFragment {
             this.noticia = noticia;
             //setTextString(R.id.tNome,carro.nome);
             setTextString(R.id.title_n, noticia.getTitle());
-
+            setTextString(R.id.date_n, noticia.getDateString());
             setTextString(R.id.desc_n, noticia.getContent());
             if(noticia.getImages().size()>0) {
                 final ImageView imgView = (ImageView) getView().findViewById(R.id.img_noticia);

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -22,16 +23,17 @@ import br.ufpi.newsufpi.model.Noticia;
  * Created by thasciano on 24/12/15.
  */
 public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.NoticiasViewHolder> {
-    protected static final String TAG = "livroandroid";
+    protected static final String TAG = "newsufpi";
     private final List<Noticia> noticias;
     private final Context context;
-
+    private ImageLoader imageLoader;
     private NoticiaOnClickListener noticiaOnClickListener;
 
     public NoticiaAdapter(Context context, List<Noticia> noticias, NoticiaOnClickListener noticiaOnClickListener) {
         this.context = context;
         this.noticias = noticias;
         this.noticiaOnClickListener = noticiaOnClickListener;
+
     }
 
     @Override
@@ -55,8 +57,8 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.Noticias
     public void onBindViewHolder(final NoticiasViewHolder holder, final int position) {
         // Atualiza a view
         Noticia n = noticias.get(position);
-
         holder.tNome.setText(n.getTitle());
+        holder.tdate.setText((CharSequence) n.getDateString());
         if(n.getImages().size()>0) {
             holder.progress.setVisibility(View.VISIBLE);
             holder.img.setVisibility(View.VISIBLE);
@@ -92,6 +94,7 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.Noticias
     // ViewHolder com as views
     public static class NoticiasViewHolder extends RecyclerView.ViewHolder {
         public TextView tNome;
+        public TextView tdate;
         ImageView img;
         ProgressBar progress;
 
@@ -99,6 +102,7 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.Noticias
             super(view);
             // Cria as views para salvar no ViewHolder
             tNome = (TextView) view.findViewById(R.id.text);
+            tdate = (TextView) view.findViewById(R.id.date);
             img = (ImageView) view.findViewById(R.id.img);
             progress = (ProgressBar) view.findViewById(R.id.progressImg);
         }

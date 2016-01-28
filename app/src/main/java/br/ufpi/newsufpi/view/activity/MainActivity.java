@@ -52,14 +52,6 @@ public class MainActivity extends BaseActivity implements
         drawerLayout.setStatusBarBackground(R.color.colorPrimary);
         mNavDrawerFragment.setUp(drawerLayout);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
 
 
@@ -121,7 +113,6 @@ public class MainActivity extends BaseActivity implements
     public NavigationDrawerFragment.NavDrawerListView getNavDrawerView(NavigationDrawerFragment navDrawerFrag, LayoutInflater inflater, ViewGroup container) {
         View view = getLayoutInflater().inflate(R.layout.nav_drawer_listview, container, false);
         //preenche o cabeçalho com a foto, nome.
-//        navDrawerFrag.setHeaderValues(view, R.id.listViewContainer, R.drawable.nav_drawer_header, R.drawable.ic_drawer, R.string.app_name, R.string.app_name);
         return (new NavigationDrawerFragment.NavDrawerListView(view, R.id.listView));
     }
 
@@ -148,16 +139,12 @@ public class MainActivity extends BaseActivity implements
     public void onNavDrawerItemSelected(NavigationDrawerFragment navDrawerFrag, int position) {
         List<NavDrawerMenuItem> list = NavDrawerMenuItem.getList();
         NavDrawerMenuItem selectedItem = list.get(position);
-
         // Seleciona a linha
         this.listAdapter.setSelected(position, true);
         if (position == 0) {
-            //replaceFragment(new CarrosFragment());
-            //toast(" 1 Clicou no item: " + getString(selectedItem.title));
             replaceFragment(new NoticiasFragment());
         } else if (position == 1) {
             toast(" 2 Clicou no item: " + getString(selectedItem.title));
-//            replaceFragment(new SiteLivroFragment());
         } else {
             Log.e("NewsUFPI", "Item de menu inválido");
         }

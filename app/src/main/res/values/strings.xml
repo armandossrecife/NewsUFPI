@@ -12,8 +12,9 @@
     <string name="menu_notice">Noticias</string>
     <string name="menu_event">Eventos</string>
     <string name="menu_lembretes">Lembretes</string>
+    <string name="menu_favoritos">Favoritos</string>
     <string name="menu_ufpiMaps">UFPI Maps</string>
-    <string name="menu_contats">Contatos</string>
+    <string name="menu_contats">Sobre</string>
 
     <!-- Action Bar -->
     <string name="actionbar_menu_refresh">Refresh</string>

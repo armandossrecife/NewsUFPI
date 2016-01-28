@@ -16,7 +16,7 @@ import br.ufpi.newsufpi.R;
  * Created by thasciano on 24/12/15.
  */
 public class NavDrawerMenuAdapter extends BaseAdapter {
-    protected static final String TAG = "nwesufpi";
+    protected static final String TAG = "newsufpi";
     private final List<NavDrawerMenuItem> list;
     private final Context context;
     private LayoutInflater inflater;

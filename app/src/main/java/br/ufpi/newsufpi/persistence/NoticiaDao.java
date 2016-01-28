@@ -101,7 +101,8 @@ public class NoticiaDao extends FacadeDao {
      * br.ufpi.nti.newsufpiapp.commons.persistence.FacadeDao#insertNotices(java
      * .util.List)
      */
-    public void insertNotices(List<Noticia> noticias) throws ParseException {
+    public int insertNotices(List<Noticia> noticias) throws ParseException {
+        int count = 0;
         SQLiteDatabase db = this.getWritableDatabase();
         for (Noticia notice : noticias) {
             if ((notice.getId() != null) && (hasNotice(notice.getId()) == null)) {
@@ -113,9 +114,11 @@ public class NoticiaDao extends FacadeDao {
                 insertImages(notice, db);
                 db.insert(TABLE_NAME_NOTICE, null, values);
                 Log.i("Save", notice.getTitle());
+                count++;
             }
         }
         db.close();
+        return count;
     }
 
     /**
