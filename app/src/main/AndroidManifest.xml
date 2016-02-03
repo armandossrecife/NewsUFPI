@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
 
     <application
         android:allowBackup="true"
@@ -33,6 +35,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.ufpi.newsufpi.view.activity.MainActivity" />
         </activity>
+        <activity android:name=".view.activity.LembreteActivity" />
+
     </application>
 
 </manifest>
