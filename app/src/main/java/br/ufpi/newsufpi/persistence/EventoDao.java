@@ -128,9 +128,13 @@ public class EventoDao extends FacadeDao {
                         + "= '" + eventId + "';", null);
         System.out.println(cursor.moveToFirst());
         if (cursor.moveToFirst()) {
-            event = new Evento(cursor.getInt(0), cursor.getString(1),
-                    cursor.getString(2), cursor.getString(3),
-                    formater.parse(cursor.getString(4)));
+            event = new Evento(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    formater.parse(cursor.getString(4))
+            );
             return event;
         }
         return null;

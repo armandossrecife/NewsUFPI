@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import br.ufpi.newsufpi.model.Evento;
+import br.ufpi.newsufpi.model.Lembrete;
 import br.ufpi.newsufpi.model.Noticia;
 
 /**
@@ -18,6 +19,8 @@ public class FacadeDao extends SQLiteOpenHelper {
     private static FacadeDao facadeDao;
     private static NoticiaDao noticiaDao;
     private static EventoDao eventoDao;
+    private static LembreteDao lembreteDao;
+
 
     protected static final Integer DATABASE_VERSION = 1;
 
@@ -36,6 +39,11 @@ public class FacadeDao extends SQLiteOpenHelper {
     protected static final String COL_DATE_EVENT = "DATE";
     protected static final String COL_IMAGE_EVENT = "IMAGE";
 
+    protected static final String TABLE_NAME_LEMBRETE = "LEMBRETE";
+    protected static final String COL_ID_LEMBRETE = "ID";
+    protected static final String COL_DATE_LEMBRETE = "DATELEMBRETE";
+
+
     protected static final String TABLE_NAME_IMAGES = "IMAGES";
     protected static final String COL_PATH_IMAGE = "PATH";
     protected static final String COL_CATEGORY_IMAGE = "CATEGORY";
@@ -50,6 +58,12 @@ public class FacadeDao extends SQLiteOpenHelper {
             + TABLE_NAME_EVENT + "( " + COL_ID_EVENT + " INTEGER PRIMARY KEY, "
             + COL_TITLE_EVENT + " TEXT , " + COL_CONTENT_EVENT + " TEXT , "
             + COL_LOCAL_EVENT + " TEXT , " + COL_DATE_EVENT + " TEXT);";
+
+    private static final String CREATE_TABLE_LEMBRETE = "CREATE TABLE "
+            + TABLE_NAME_LEMBRETE + "( " + COL_ID_LEMBRETE + " INTEGER PRIMARY KEY, "
+            + COL_TITLE_EVENT + " TEXT , " + COL_CONTENT_EVENT + " TEXT , "
+            + COL_LOCAL_EVENT + " TEXT , " + COL_DATE_EVENT + " TEXT , " + COL_DATE_LEMBRETE + "TEXT );";
+
 
     private static final String CREATE_TABLE_IMAGES = "CREATE TABLE "
             + TABLE_NAME_IMAGES + "( " + COL_ID_EVENT + " INTEGER, "
@@ -67,6 +81,7 @@ public class FacadeDao extends SQLiteOpenHelper {
         }
         noticiaDao = NoticiaDao.getInstance(context);
         eventoDao = EventoDao.getInstance(context);
+        lembreteDao = LembreteDao.getInstance(context);
         return facadeDao;
     }
 
@@ -74,6 +89,7 @@ public class FacadeDao extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_NOTICE);
         db.execSQL(CREATE_TABLE_EVENT);
+        db.execSQL(CREATE_TABLE_LEMBRETE);
         db.execSQL(CREATE_TABLE_IMAGES);
     }
 
@@ -81,6 +97,7 @@ public class FacadeDao extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME_NOTICE);
         db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME_EVENT);
+        db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME_LEMBRETE);
         db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME_IMAGES);
         onCreate(db);
     }
@@ -149,6 +166,39 @@ public class FacadeDao extends SQLiteOpenHelper {
      */
     public void deleteAllEvents() {
         eventoDao.deleteAllEvents();
+    }
+
+
+    /**
+     * @return
+     * @throws ParseException
+     */
+    public List<Lembrete> listAllLembrete() throws ParseException {
+        return lembreteDao.listAllLembrete();
+    }
+
+    /**
+     * @param lembretes
+     * @throws ParseException
+     */
+    public void insertLembrete(List<Lembrete> lembretes) throws ParseException {
+        lembreteDao.insertLembrete(lembretes);
+    }
+
+
+
+    /**
+     * @param lembreteId
+     */
+    public void deleteLembrete(Integer lembreteId) {
+        lembreteDao.deleteLembrete(lembreteId);
+    }
+
+    /**
+     *
+     */
+    public void deleteAllLembretes() {
+        lembreteDao.deleteAllLembretes();
     }
 
 }

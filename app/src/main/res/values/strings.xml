@@ -19,4 +19,5 @@
     <!-- Action Bar -->
     <string name="actionbar_menu_refresh">Refresh</string>
     <string name="error_conexao_indisponivel">Conexão indisponível. Verifique seu Wi-FI ou 3G.</string>
+    <string name="versao">Versao 1.0 - Projeto Agregador de Noticias e Eventos UFPI</string>
 </resources>

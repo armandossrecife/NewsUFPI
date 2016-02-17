@@ -24,6 +24,7 @@ public class Evento implements Serializable {
         this.date = date;
     }
 
+
     public Integer getId() {
         return id;
     }

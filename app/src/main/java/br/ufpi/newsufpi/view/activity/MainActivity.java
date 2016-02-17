@@ -1,7 +1,6 @@
 package br.ufpi.newsufpi.view.activity;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -20,9 +19,9 @@ import java.util.List;
 import br.ufpi.newsufpi.R;
 import br.ufpi.newsufpi.view.adapter.NavDrawerMenuAdapter;
 import br.ufpi.newsufpi.view.adapter.NavDrawerMenuItem;
+import br.ufpi.newsufpi.view.fragments.AboutFragment;
 import br.ufpi.newsufpi.view.fragments.LembreteFragment;
 import br.ufpi.newsufpi.view.fragments.NoticiasFragment;
-import br.ufpi.newsufpi.view.fragments.SobreFragment;
 import livroandroid.lib.fragment.NavigationDrawerFragment;
 
 /**
@@ -151,7 +150,7 @@ public class MainActivity extends BaseActivity implements
         }else if (position == 2) {
             replaceFragment(new LembreteFragment());
         } else if (position == 4) {
-            replaceFragment(new SobreFragment());
+            replaceFragment(new AboutFragment());
         } else {
             Log.e("NewsUFPI", "Item de menu inválido");
         }

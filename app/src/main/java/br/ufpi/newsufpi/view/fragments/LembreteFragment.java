@@ -22,8 +22,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.net.URI;
+import java.text.DateFormat;
+import java.util.Date;
 
 import br.ufpi.newsufpi.R;
+import br.ufpi.newsufpi.model.Evento;
 import br.ufpi.newsufpi.view.activity.LembreteActivity;
 import br.ufpi.newsufpi.view.activity.MainActivity;
 
@@ -32,10 +35,20 @@ import br.ufpi.newsufpi.view.activity.MainActivity;
  * Created by katia cibele on 03/02/2016.
  */
 public class LembreteFragment extends BaseFragment {
+    private  Evento e ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lembrete_fragment, container, false);
+
+         e = new Evento (0,"I Simpósio Internacional Estado, Sociedade e Políticas Públicas",
+               "O Simpósio é uma concepção e realização do Programa de Pós-graduação em Políticas Públicas da Universidade Federal do Piauí. Tem o apoio institucional das Pró – Reitorias de Ensino de Pós-graduação e de Pesquisa; Centro de Ciências Humanas e Letras, Programa de Pós-graduação em Artes, Patrimônio e Museologia e do Núcleo de Pesquisa e Extensão sobre Serviço Social e Questão Social da Universidade Federal do Piauí.",
+                "Ufpi",
+                new Date());
+
+
+
+
 
         Button btnSalvaNotificacao = (Button) view.findViewById(R.id.btn_salvar_notificacao);
         btnSalvaNotificacao.setOnClickListener(new View.OnClickListener() {
@@ -61,9 +74,9 @@ public class LembreteFragment extends BaseFragment {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext());
         //texto que ira aparecer na notifica~ção
-        builder.setTicker("Evento notificado");
-        builder.setContentTitle("Nome do evento");
-        builder.setContentText("descrição");
+        builder.setTicker(e.getTitle());
+        builder.setContentTitle(e.getLocal());
+        builder.setContentText(e.getTitle());
         builder.setSmallIcon(R.drawable.ic_notification);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icone_principal));
 
@@ -76,15 +89,15 @@ public class LembreteFragment extends BaseFragment {
         mn.notify(R.drawable.icone_principal,n);
 
         //setando toque
-//        try{
-//
-//           Uri som = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//            Ringtone toque = RingtoneManager.getRingtone(getContext(),som);
-//
-//
-//        }catch(Exception e){
-//
-//        }
+        try{
+
+           Uri som = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone toque = RingtoneManager.getRingtone(getContext(),som);
+
+
+        }catch(Exception e){
+
+        }
 
     }
 }
