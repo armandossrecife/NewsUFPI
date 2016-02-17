@@ -35,8 +35,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.ufpi.newsufpi.view.activity.MainActivity" />
         </activity>
+
         <activity android:name=".view.activity.LembreteActivity" />
 
+        <activity android:name=".view.activity.EventoActivity"
+            android:label="@string/title_activity_evento"
+            android:parentActivityName=".view.activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.ufpi.newsufpi.view.activity.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

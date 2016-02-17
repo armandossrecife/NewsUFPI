@@ -5,10 +5,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.ufpi.newsufpi.model.Evento;
@@ -34,32 +36,27 @@ public class EventoDao extends FacadeDao {
         super(context);
     }
 
-    public void insertEvents(List<Evento> eventos) throws ParseException {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        for (Evento evento : eventos) {
-            if (hasEvent(evento.getId()) == null) {
+    public int insertEvents(List<Evento> events) throws ParseException {
+        int count = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        for (Evento event : events) {
+            if ((event.getId() != null) && (hasEvent(event.getId()) == null)) {
                 ContentValues values = new ContentValues();
-                values.put(COL_ID_EVENT, evento.getId());
-                values.put(COL_TITLE_EVENT, evento.getTitle());
-                values.put(COL_CONTENT_EVENT, evento.getContent());
-                values.put(COL_LOCAL_EVENT, evento.getLocal());
-                values.put(COL_DATE_EVENT, String.valueOf(evento.getDate()));
-                // values.put(COL_IMAGE_EVENT, event.getImages());
-                insertImages(evento, sqLiteDatabase);
-                sqLiteDatabase.insert(TABLE_NAME_EVENT, null, values);
+                values.put(COL_DATAINICIO_EVENT, event.getDataInicio().getTime());
+                values.put(COL_ID_EVENT, event.getId());
+                values.put(COL_LOCAL_EVENT, event.getLocal());
+                values.put(COL_TITLE_EVENT, event.getTitle());
+                values.put(COL_CONTENT_EVENT, event.getContent());
+
+                values.put(COL_CATEGORIA_EVENT, event.getCategoria());
+                values.put(COL_DATAFIM_EVENT, event.getDataFim().getTime());
+                db.insert(TABLE_NAME_EVENT, null, values);
+                Log.i("Save", event.getTitle());
+                count++;
             }
         }
-        sqLiteDatabase.close();
-    }
-
-    public void insertImages(Evento event, SQLiteDatabase sqLiteDatabase) {
-        for (String image : event.getImages()) {
-            ContentValues values = new ContentValues();
-            values.put(COL_ID_EVENT, event.getId());
-            values.put(COL_PATH_IMAGE, image);
-            values.put(COL_CATEGORY_IMAGE, "event");
-            sqLiteDatabase.insert(TABLE_NAME_IMAGES, null, values);
-        }
+        db.close();
+        return count;
     }
 
     /**
@@ -67,20 +64,19 @@ public class EventoDao extends FacadeDao {
      * @throws ParseException
      */
     @SuppressLint("SimpleDateFormat")
-    public List<Evento> listAllEvents() throws ParseException {
+    public List<Evento> listAllEvents() {
         List<Evento> events = new ArrayList<Evento>();
         String[] aux = { COL_ID_EVENT, COL_TITLE_EVENT, COL_CONTENT_EVENT,
-                COL_LOCAL_EVENT, COL_DATE_EVENT };
+                COL_LOCAL_EVENT, COL_CATEGORIA_EVENT, COL_DATAINICIO_EVENT,COL_DATAFIM_EVENT };
         Cursor cursor = getWritableDatabase().query(TABLE_NAME_EVENT, aux,
-                null, null, null, null, COL_DATE_EVENT + " DESC");
+                null, null, null, null, COL_DATAINICIO_EVENT + " DESC");
         SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
         while (cursor.moveToNext()) {
 
             Evento event = new Evento(cursor.getInt(0), cursor.getString(1),
-                    cursor.getString(2), cursor.getString(3),
-                    formater.parse(cursor.getString(4)));
-            List<String> images = listImages(event);
-            event.setImages(images);
+                    cursor.getString(2), cursor.getString(3), cursor.getString(4),
+                    new Date(cursor.getLong(5)), new Date(cursor.getLong(6))
+                    );
             events.add(event);
         }
         cursor.close();
@@ -100,14 +96,12 @@ public class EventoDao extends FacadeDao {
                 "SELECT * FROM " + TABLE_NAME_EVENT + " WHERE "
                         + COL_TITLE_EVENT + " LIKE '%" + eventTitle + "%' OR "
                         + COL_CONTENT_EVENT + " LIKE '%" + eventTitle
-                        + "%' order by " + COL_DATE_EVENT + " DESC ;", null);
+                        + "%' order by " + COL_DATAINICIO_EVENT + " DESC ;", null);
         SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
         while (cursor.moveToNext()) {
             event = new Evento(cursor.getInt(0), cursor.getString(1),
-                    cursor.getString(2), cursor.getString(3),
-                    formater.parse(cursor.getString(4)));
-            List<String> images = listImages(event);
-            event.setImages(images);
+                    cursor.getString(2), cursor.getString(3), cursor.getString(4),
+                    formater.parse(cursor.getString(5)), formater.parse(cursor.getString(6)));
             events.add(event);
         }
         cursor.close();
@@ -128,13 +122,9 @@ public class EventoDao extends FacadeDao {
                         + "= '" + eventId + "';", null);
         System.out.println(cursor.moveToFirst());
         if (cursor.moveToFirst()) {
-            event = new Evento(
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    formater.parse(cursor.getString(4))
-            );
+            event = new Evento(cursor.getInt(0), cursor.getString(1),
+                    cursor.getString(2), cursor.getString(3), cursor.getString(4),
+                    formater.parse(cursor.getString(5)), formater.parse(cursor.getString(6)));
             return event;
         }
         return null;

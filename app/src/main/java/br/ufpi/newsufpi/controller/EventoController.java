@@ -18,11 +18,11 @@ public class EventoController {
         this.facadeDao = FacadeDao.getInstance(context);
     }
 
-    public void insertEvents(List<Evento> eventos) throws ParseException{
-        facadeDao.insertEvents(eventos);
+    public int insertEvents(List<Evento> eventos) throws ParseException{
+        return facadeDao.insertEvents(eventos);
     }
 
-    public List<Evento> listAllEvents() throws ParseException {
+    public List<Evento> listAllEvents() {
         return facadeDao.listAllEvents();
     }
 

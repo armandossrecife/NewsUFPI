@@ -20,6 +20,7 @@ import br.ufpi.newsufpi.R;
 import br.ufpi.newsufpi.view.adapter.NavDrawerMenuAdapter;
 import br.ufpi.newsufpi.view.adapter.NavDrawerMenuItem;
 import br.ufpi.newsufpi.view.fragments.AboutFragment;
+import br.ufpi.newsufpi.view.fragments.EventosFragment;
 import br.ufpi.newsufpi.view.fragments.LembreteFragment;
 import br.ufpi.newsufpi.view.fragments.NoticiasFragment;
 import livroandroid.lib.fragment.NavigationDrawerFragment;
@@ -146,8 +147,8 @@ public class MainActivity extends BaseActivity implements
         if (position == 0) {
             replaceFragment(new NoticiasFragment());
         } else if (position == 1) {
-            toast(" 2 Clicou no item: " + getString(selectedItem.title));
-        }else if (position == 2) {
+            replaceFragment(new EventosFragment());
+        } else if (position == 2) {
             replaceFragment(new LembreteFragment());
         } else if (position == 4) {
             replaceFragment(new AboutFragment());
