@@ -2,6 +2,7 @@
     <string name="app_name">NewsUFPI</string>
     <string name="title_activity_main">News UFPI</string>
     <string name="title_activity_noticia">Noticia</string>
+    <string name="title_activity_evento">Evento</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_search">Search</string>

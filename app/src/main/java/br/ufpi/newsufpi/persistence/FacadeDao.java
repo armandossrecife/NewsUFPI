@@ -19,7 +19,7 @@ public class FacadeDao extends SQLiteOpenHelper {
     private static NoticiaDao noticiaDao;
     private static EventoDao eventoDao;
 
-    protected static final Integer DATABASE_VERSION = 1;
+    protected static final Integer DATABASE_VERSION = 3;
 
     protected static final String TABLE_NAME_NOTICE = "NOTICE";
     protected static final String COL_ID_NOTICE = "ID";
@@ -33,8 +33,9 @@ public class FacadeDao extends SQLiteOpenHelper {
     protected static final String COL_TITLE_EVENT = "TITLE";
     protected static final String COL_CONTENT_EVENT = "CONTENT";
     protected static final String COL_LOCAL_EVENT = "LOCAL";
-    protected static final String COL_DATE_EVENT = "DATE";
-    protected static final String COL_IMAGE_EVENT = "IMAGE";
+    protected static final String COL_CATEGORIA_EVENT = "CATEGORIA";
+    protected static final String COL_DATAINICIO_EVENT = "DATAINICIO";
+    protected static final String COL_DATAFIM_EVENT = "DATAFIM";
 
     protected static final String TABLE_NAME_IMAGES = "IMAGES";
     protected static final String COL_PATH_IMAGE = "PATH";
@@ -49,7 +50,8 @@ public class FacadeDao extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_EVENT = "CREATE TABLE "
             + TABLE_NAME_EVENT + "( " + COL_ID_EVENT + " INTEGER PRIMARY KEY, "
             + COL_TITLE_EVENT + " TEXT , " + COL_CONTENT_EVENT + " TEXT , "
-            + COL_LOCAL_EVENT + " TEXT , " + COL_DATE_EVENT + " TEXT);";
+            + COL_LOCAL_EVENT + " TEXT , " + COL_CATEGORIA_EVENT + " TEXT , "
+            + COL_DATAINICIO_EVENT + " DATETIME , " + COL_DATAFIM_EVENT + " DATETIME );";
 
     private static final String CREATE_TABLE_IMAGES = "CREATE TABLE "
             + TABLE_NAME_IMAGES + "( " + COL_ID_EVENT + " INTEGER, "
@@ -116,7 +118,7 @@ public class FacadeDao extends SQLiteOpenHelper {
      * @return
      * @throws ParseException
      */
-    public List<Evento> listAllEvents() throws ParseException {
+    public List<Evento> listAllEvents() {
         return eventoDao.listAllEvents();
     }
 
@@ -124,8 +126,8 @@ public class FacadeDao extends SQLiteOpenHelper {
      * @param eventos
      * @throws ParseException
      */
-    public void insertEvents(List<Evento> eventos) throws ParseException {
-        eventoDao.insertEvents(eventos);
+    public int insertEvents(List<Evento> eventos) throws ParseException {
+        return eventoDao.insertEvents(eventos);
     }
 
     /**

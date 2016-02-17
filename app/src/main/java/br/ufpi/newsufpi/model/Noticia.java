@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Noticia implements Serializable {
     //gerador de json: http://www.json-generator.com/
-    public static final String NOTICIA_URL = "http://www.json-generator.com/api/json/get/cfFSkmKwGG?indent=2";
+        public static final String NOTICIA_URL = "http://www.json-generator.com/api/json/get/cfFSkmKwGG?indent=2";
 
     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     private Integer id;

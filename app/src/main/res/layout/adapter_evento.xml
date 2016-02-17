@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- titulo da noticia -->
+        <TextView
+            android:id="@+id/text"
+            android:layout_toRightOf="@+id/imgframe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
+            android:text="titulo."
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/intervalo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="6dp"
+            android:textSize="10sp"
+            android:textColor="@color/colorPrimary"
+            android:text="data."
+            android:textStyle="bold"
+            android:layout_below="@+id/text"
+            android:layout_alignParentRight="true" />
+
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="6dp"
+            android:background="@color/gray"
+            android:layout_below="@+id/date"
+            android:layout_toRightOf="@+id/imgframe" />
+
+        <ImageView
+            android:id="@+id/favorite"
+            android:layout_below="@+id/line"
+            android:layout_marginBottom="6dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="32dp"
+            android:tint="@color/black"
+            android:src="@drawable/ic_grade_black_48dp"
+            android:layout_alignParentRight="true" />
+
+        <ImageView
+            android:id="@+id/share"
+            android:layout_toLeftOf="@id/favorite"
+            android:layout_below="@+id/line"
+            android:layout_marginBottom="6dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="32dp"
+            android:tint="@color/black"
+            android:src="@drawable/ic_action_share"
+            android:clickable="true" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+
+
