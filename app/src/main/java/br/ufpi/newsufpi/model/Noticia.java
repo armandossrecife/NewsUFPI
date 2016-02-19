@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Created by thasciano on 23/12/15.
  */
+@SuppressWarnings("ALL")
 public class Noticia implements Serializable {
     //gerador de json: http://www.json-generator.com/
         public static final String NOTICIA_URL = "http://www.json-generator.com/api/json/get/cfFSkmKwGG?indent=2";

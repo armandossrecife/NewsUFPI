@@ -9,8 +9,11 @@ import br.ufpi.newsufpi.model.Noticia;
 import br.ufpi.newsufpi.persistence.FacadeDao;
 
 /**
+ * Classe responsável pela regra de negócio de noticia.
+ *
  * Created by thasciano on 23/12/15.
  */
+@SuppressWarnings("ALL")
 public class NoticiaController {
     private FacadeDao facadeDao;
 

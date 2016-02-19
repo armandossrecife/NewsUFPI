@@ -1,6 +1,5 @@
 package br.ufpi.newsufpi.persistence;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,11 +9,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-import br.ufpi.newsufpi.model.Evento;
 import br.ufpi.newsufpi.model.Lembrete;
 
 /**
+ * Classe responsavel por fazer as operações no banco de dados de Lembrete.
  * Created by katia cibele on 12/02/2016.
  */
 public class LembreteDao extends FacadeDao {
@@ -56,21 +56,20 @@ public class LembreteDao extends FacadeDao {
      * @return retorna todos eventos
      * @throws ParseException
      */
-    @SuppressLint("SimpleDateFormat")
     public List<Lembrete> listAllLembrete() throws ParseException {
         List<Lembrete> lembretes = new ArrayList<Lembrete>();
         String[] aux = { COL_ID_LEMBRETE, COL_TITLE_EVENT, COL_DATE_LEMBRETE,
                 COL_ID_EVENT};
         Cursor cursor = getWritableDatabase().query(TABLE_NAME_LEMBRETE, aux,
                 null, null, null, null,COL_DATE_LEMBRETE + "DESC");
-        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat form = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt", "BR"));
         while (cursor.moveToNext()) {
 
             Lembrete lembrete = new Lembrete(
 
                     cursor.getInt(0),
                     cursor.getString(1),
-                    formater.parse(cursor.getString(2)),
+                    form.parse(cursor.getString(2)),
                     cursor.getInt(3)
 
             );
@@ -89,7 +88,7 @@ public class LembreteDao extends FacadeDao {
      */
     public Lembrete hasLembrete(int idLembrete) throws ParseException {
         Lembrete lembrete;
-        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy", new Locale("pt", "BR"));
 
        Cursor cursor = getWritableDatabase().rawQuery(
                 "SELECT * FROM " + TABLE_NAME_EVENT + " WHERE " + COL_ID_EVENT

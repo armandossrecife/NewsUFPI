@@ -98,7 +98,20 @@ public class NoticiasFragment extends BaseFragment implements Transaction {
             @Override
             public void onRefresh() {
                 if (AndroidUtils.isNetworkAvailable(getContext())) {
-                    (new ServerConnection(getContext(), NoticiasFragment.this)).execute();
+
+                    int buscar = getArguments().getInt("buscar");
+                    String query = getArguments().getString("query");
+                    if(buscar == 1){
+                        try {
+                            noticias = noticiaController.findNotices(query);
+                            updateView(noticias, noticias.size());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        (new ServerConnection(getContext(), NoticiasFragment.this)).execute();
+                    }
+
                 } else {
                     updateView(noticiaController.listAllNotices(), -1);
                     swipeLayout.setRefreshing(false);
@@ -118,12 +131,17 @@ public class NoticiasFragment extends BaseFragment implements Transaction {
 
             recyclerView.setAdapter(new NoticiaAdapter(getContext(), noticias, onClickNoticia()));
             swipeLayout.setRefreshing(false);
-            if(count > 0) {
-                snackbar = Snackbar.make(view, noticias.size() + " novas noticias foram baixadas.", Snackbar.LENGTH_LONG);
-            }else if(count == -1) {
-                snackbar = Snackbar.make(view, R.string.error_conexao_indisponivel, Snackbar.LENGTH_LONG);
-            }else{
-                snackbar = Snackbar.make(view, " Não há novas noticias.", Snackbar.LENGTH_LONG);
+            if((getArguments().getInt("buscar")) == 1){
+                snackbar = Snackbar.make(view, noticias.size() + " noticias foram encontradas.", Snackbar.LENGTH_LONG);
+                getArguments().putSerializable("buscar", 0);
+            }else {
+                if (count > 0) {
+                    snackbar = Snackbar.make(view, noticias.size() + " novas noticias foram baixadas.", Snackbar.LENGTH_LONG);
+                } else if (count == -1) {
+                    snackbar = Snackbar.make(view, R.string.error_conexao_indisponivel, Snackbar.LENGTH_LONG);
+                } else {
+                    snackbar = Snackbar.make(view, " Não há novas noticias.", Snackbar.LENGTH_LONG);
+                }
             }
             snackbar.show();
 

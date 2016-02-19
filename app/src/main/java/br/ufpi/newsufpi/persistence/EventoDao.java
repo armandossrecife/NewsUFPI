@@ -1,6 +1,5 @@
 package br.ufpi.newsufpi.persistence;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,6 +15,8 @@ import java.util.List;
 import br.ufpi.newsufpi.model.Evento;
 
 /**
+ * Classe responsavel por fazer as operações no banco de dados de Eventos.
+ *
  * Created by thasciano on 23/12/15.
  */
 public class EventoDao extends FacadeDao {
@@ -30,6 +31,7 @@ public class EventoDao extends FacadeDao {
     }
 
     /**
+     * Contrutor.
      * @param context
      */
     public EventoDao(Context context) {
@@ -63,14 +65,12 @@ public class EventoDao extends FacadeDao {
      * @return retorna todos eventos
      * @throws ParseException
      */
-    @SuppressLint("SimpleDateFormat")
     public List<Evento> listAllEvents() {
         List<Evento> events = new ArrayList<Evento>();
         String[] aux = { COL_ID_EVENT, COL_TITLE_EVENT, COL_CONTENT_EVENT,
                 COL_LOCAL_EVENT, COL_CATEGORIA_EVENT, COL_DATAINICIO_EVENT,COL_DATAFIM_EVENT };
         Cursor cursor = getWritableDatabase().query(TABLE_NAME_EVENT, aux,
                 null, null, null, null, COL_DATAINICIO_EVENT + " DESC");
-        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
         while (cursor.moveToNext()) {
 
             Evento event = new Evento(cursor.getInt(0), cursor.getString(1),

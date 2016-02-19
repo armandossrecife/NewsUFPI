@@ -1,6 +1,7 @@
 package br.ufpi.newsufpi.view.activity;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -34,6 +35,8 @@ public class MainActivity extends BaseActivity implements
 
     private NavigationDrawerFragment mNavDrawerFragment;
     private NavDrawerMenuAdapter listAdapter;
+    private int menuPosicao;
+    private Bundle args = new Bundle();
     /**
      * Cria a Activity principal.
      * @param savedInstanceState
@@ -83,7 +86,38 @@ public class MainActivity extends BaseActivity implements
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // Usuário fez a busca
-                toast("Buscar o texto: " + query);
+                //toast("Buscar o texto: " + query);
+
+                Context context = getApplicationContext();
+                CharSequence start = query;
+                //int duration = Toast.LENGTH_SHORT;
+                if(menuPosicao == 0) {
+                    Fragment fragment = new NoticiasFragment();
+
+                    args.putSerializable("buscar", 1);
+                    args.putSerializable("query", query);
+                    fragment.setArguments(args);
+                    replaceFragment(fragment);
+                    // Insert the fragment by replacing any existing fragment
+                    /*FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.content_frame, fragment)
+                            .commit();*/
+                }
+                if(menuPosicao == 1) {
+                    Fragment fragment = new EventosFragment();
+                    Bundle args = new Bundle();
+                    args.putSerializable("buscar", 1);
+                    args.putSerializable("query", query);
+                    fragment.setArguments(args);
+                    replaceFragment(fragment);
+                    // Insert the fragment by replacing any existing fragment
+                   /* FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.content_frame, fragment)
+                            .commit();*/
+                }
+
                 return false;
             }
             @Override
@@ -140,18 +174,38 @@ public class MainActivity extends BaseActivity implements
      */
     @Override
     public void onNavDrawerItemSelected(NavigationDrawerFragment navDrawerFrag, int position) {
+        menuPosicao = position;
         List<NavDrawerMenuItem> list = NavDrawerMenuItem.getList();
         NavDrawerMenuItem selectedItem = list.get(position);
+
+        Fragment fragment;
+        Bundle args = new Bundle();
+        args.putSerializable("buscar", 0);
+
         // Seleciona a linha
         this.listAdapter.setSelected(position, true);
         if (position == 0) {
-            replaceFragment(new NoticiasFragment());
+            fragment = new NoticiasFragment();
+            fragment.setArguments(args);
+            replaceFragment(fragment);
         } else if (position == 1) {
-            replaceFragment(new EventosFragment());
+            fragment = new EventosFragment();
+            fragment.setArguments(args);
+            replaceFragment(fragment);
+
+            //replaceFragment(new EventosFragment());
         } else if (position == 2) {
-            replaceFragment(new LembreteFragment());
+            fragment = new LembreteFragment();
+            fragment.setArguments(args);
+            replaceFragment(fragment);
+
+            //replaceFragment(new LembreteFragment());
         } else if (position == 4) {
-            replaceFragment(new AboutFragment());
+            fragment = new AboutFragment();
+            fragment.setArguments(args);
+            replaceFragment(fragment);
+
+            //replaceFragment(new AboutFragment());
         } else {
             Log.e("NewsUFPI", "Item de menu inválido");
         }

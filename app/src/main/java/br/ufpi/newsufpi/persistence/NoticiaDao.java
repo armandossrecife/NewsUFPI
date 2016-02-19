@@ -1,6 +1,5 @@
 package br.ufpi.newsufpi.persistence;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,6 +14,8 @@ import java.util.List;
 import br.ufpi.newsufpi.model.Noticia;
 
 /**
+ * Classe responsavel por fazer as operações no banco de dados de noticias.
+ *
  * Created by thasciano on 23/12/15.
  */
 public class NoticiaDao extends FacadeDao {
@@ -44,7 +45,6 @@ public class NoticiaDao extends FacadeDao {
      * @see
      * br.ufpi.nti.newsufpiapp.commons.persistence.FacadeDao#listAllNotices()
      */
-    @SuppressLint("SimpleDateFormat")
     public List<Noticia> listAllNotices() {
         List<Noticia> notices = new ArrayList<Noticia>();
         String[] cols = { COL_ID_NOTICE, COL_TITLE_NOTICE, COL_CONTENT_NOTICE,
@@ -74,7 +74,6 @@ public class NoticiaDao extends FacadeDao {
      * br.ufpi.nti.newsufpiapp.commons.persistence.FacadeDao#findNotices(java
      * .lang.String)
      */
-    @SuppressLint("SimpleDateFormat")
     public List<Noticia> findNotices(String text) throws ParseException {
         List<Noticia> noticias = new ArrayList<Noticia>();
         Cursor cursor = getWritableDatabase().rawQuery(
@@ -165,7 +164,6 @@ public class NoticiaDao extends FacadeDao {
      * @return Uma noticia se existir ou nulo senão.
      * @throws ParseException
      */
-    @SuppressLint("SimpleDateFormat")
     public Noticia hasNotice(Integer noticiaId) throws ParseException {
         Noticia noticia;
 

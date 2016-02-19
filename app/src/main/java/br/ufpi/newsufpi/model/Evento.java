@@ -6,13 +6,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * Entidade de Evento.
+ *
  * Created by thasciano on 23/12/15.
  */
+@SuppressWarnings("ALL")
 public class Evento implements Serializable {
     public static final String EVENTO_URL = "http://www.json-generator.com/api/json/get/cnBFWYXNea?indent=2";
 
     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
+    /**
+     *
+     */
     private Integer id;
     private String title;
     private String content;
@@ -21,6 +26,17 @@ public class Evento implements Serializable {
     private Date dataInicio;
     private Date dataFim;
 
+    /**
+     * Construtor.
+     *
+     * @param id
+     * @param title
+     * @param content
+     * @param local
+     * @param categoria
+     * @param dataInicio
+     * @param dataFim
+     */
     public Evento(Integer id, String title, String content, String local, String categoria, Date dataInicio, Date dataFim) {
         this.id = id;
         this.title = title;

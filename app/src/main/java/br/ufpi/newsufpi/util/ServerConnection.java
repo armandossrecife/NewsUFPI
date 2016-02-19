@@ -11,6 +11,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 /**
+ * Classe que faz a requisição de dados do servidor.
+ *
  * Created by thasciano on 23/12/15.
  */
 public class ServerConnection {
