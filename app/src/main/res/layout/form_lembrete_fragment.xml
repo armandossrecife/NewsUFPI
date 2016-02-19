@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/card_default_background">
+
+
+
+
+
+        <ImageButton
+            style="@style/Base.TextAppearance.AppCompat.Menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonCancelaLembrete"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:drawableTint="@android:drawable/ic_menu_save"
+            android:textColorHighlight="@android:color/tab_indicator_text"
+            android:longClickable="true"
+            />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Concluído"
+                android:id="@+id/buttonConfirmaLembrete"
+                style="@style/Base.TextAppearance.AppCompat.Menu"
+                android:drawableTint="@android:drawable/ic_menu_save"
+                android:textColorHighlight="@android:color/tab_indicator_text"
+                android:textSize="10sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_weight="0.68" />
+
+
+        </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+       />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/selectionEvento"
+        android:id="@+id/textViewSelecioneEvento" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerLembreteEvento"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center_horizontal" />
+
+
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Local"
+            android:id="@+id/localFormLembrete"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:singleLine="false" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/textViewSetLocal" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        />
+
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ser notificado "
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/horaAlarme"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+        style="@style/Base.TextAppearance.AppCompat.Title"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioGroup
+            android:id="@+id/radioGroupLembrete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/radioUmaHoraAntes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uma hora antes"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/radioUmDiaAntes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Um dia antes " />
+
+        </RadioGroup>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            />
+
+
+
+    </LinearLayout>
+
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data"
+            android:id="@+id/dataForm"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+        style="@style/Base.TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+          android:id="@+id/textViewSetData" />
+
+
+</LinearLayout>

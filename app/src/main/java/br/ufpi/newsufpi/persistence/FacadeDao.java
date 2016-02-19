@@ -40,9 +40,12 @@ public class FacadeDao extends SQLiteOpenHelper {
     protected static final String COL_DATAINICIO_EVENT = "DATAINICIO";
     protected static final String COL_DATAFIM_EVENT = "DATAFIM";
 
+    //deve ser melhorado posteriormente para usar id de evento como chave estrangeiro e fazer conexao entre tabelas
     protected static final String TABLE_NAME_LEMBRETE = "LEMBRETE";
     protected static final String COL_ID_LEMBRETE = "ID";
+    protected static final String COL_TITLE_LEMBRETE = "TITLE";
     protected static final String COL_DATE_LEMBRETE = "DATELEMBRETE";
+    protected static final String COL_ID_EVENT_LEMBRETE = "IDEVENT";
 
 
     protected static final String TABLE_NAME_IMAGES = "IMAGES";
@@ -63,8 +66,8 @@ public class FacadeDao extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_LEMBRETE = "CREATE TABLE "
             + TABLE_NAME_LEMBRETE + "( " + COL_ID_LEMBRETE + " INTEGER PRIMARY KEY, "
-            + COL_TITLE_EVENT + " TEXT , " + COL_CONTENT_EVENT + " TEXT , "
-            + COL_LOCAL_EVENT + " TEXT , " + COL_DATE_EVENT + " TEXT , " + COL_DATE_LEMBRETE + "TEXT );";
+            + COL_TITLE_LEMBRETE + " TEXT , " + COL_DATE_LEMBRETE + " DATETIME , "
+            + COL_ID_EVENT_LEMBRETE + "TEXT );";
 
 
     private static final String CREATE_TABLE_IMAGES = "CREATE TABLE "
@@ -97,10 +100,10 @@ public class FacadeDao extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME_NOTICE);
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME_EVENT);
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME_LEMBRETE);
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME_IMAGES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_NOTICE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_EVENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_LEMBRETE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_IMAGES);
         onCreate(db);
     }
 
@@ -154,6 +157,9 @@ public class FacadeDao extends SQLiteOpenHelper {
      */
     public List<Evento> findEvent(String eventTitle) throws ParseException {
         return eventoDao.findEvent(eventTitle);
+    }
+    public List<Evento> findEventId(int eventId) throws ParseException {
+        return eventoDao.findEventId(eventId);
     }
 
     /**

@@ -41,7 +41,7 @@ public class LembreteDao extends FacadeDao {
             if (hasLembrete(lembrete.getId()) == null) {
                 ContentValues values = new ContentValues();
                 values.put(COL_ID_LEMBRETE, lembrete.getId());
-                values.put(COL_TITLE_EVENT, lembrete.getContent());
+                values.put(COL_TITLE_LEMBRETE, lembrete.getTitle_lembrete());
                  values.put(COL_DATE_LEMBRETE, String.valueOf(lembrete.getDateLembrete()));
                 values.put(COL_ID_EVENT, lembrete.getIdEvento());
                 sqLiteDatabase.insert(TABLE_NAME_LEMBRETE, null, values);
@@ -67,6 +67,7 @@ public class LembreteDao extends FacadeDao {
         while (cursor.moveToNext()) {
 
             Lembrete lembrete = new Lembrete(
+
                     cursor.getInt(0),
                     cursor.getString(1),
                     formater.parse(cursor.getString(2)),
@@ -95,8 +96,7 @@ public class LembreteDao extends FacadeDao {
                         + "= '" + idLembrete+ "';", null);
 
         if (cursor.moveToFirst()) {
-            lembrete = new Lembrete(
-                    cursor.getInt(0),
+            lembrete = new Lembrete( cursor.getInt(0),
                     cursor.getString(1),
                     formater.parse(cursor.getString(2)),
                     cursor.getInt(3)

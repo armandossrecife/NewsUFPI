@@ -1,13 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
-    <Button
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/card_default_background"
+       >
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonCancelaLembrete"
+        android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+        style="@style/Base.TextAppearance.AppCompat.Menu"
+        android:layout_weight="0.04"
+        android:layout_gravity="center_horizontal" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonConfirmaLembrete"
+            android:src="@android:drawable/ic_menu_add"
+            android:layout_gravity="right"
+            android:layout_weight="0.04"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center_horizontal" />
+
+
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lembrar"
-        android:id="@+id/btn_salvar_notificacao"
+        android:id="@+id/listViewMenuLembretes"
+        style="@style/Base.Widget.AppCompat.ListView"
+        android:divider="@android:color/holo_blue_dark"
+        android:dividerHeight="5dp" />
 
-        />
+
+
+    />
+
+
 </LinearLayout>

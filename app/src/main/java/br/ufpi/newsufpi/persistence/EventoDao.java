@@ -107,6 +107,22 @@ public class EventoDao extends FacadeDao {
         cursor.close();
         return events;
     }
+    public List<Evento> findEventId(int eventId) throws ParseException {
+        Evento event;
+        List<Evento> events = new ArrayList<Evento>();
+        Cursor cursor = getWritableDatabase().rawQuery(
+                "SELECT * FROM " + TABLE_NAME_EVENT + " WHERE "
+                        + COL_ID_EVENT + "= '%" + eventId + "%' order by " + COL_DATAINICIO_EVENT + " DESC ;", null);
+        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+        while (cursor.moveToNext()) {
+            event = new Evento(cursor.getInt(0), cursor.getString(1),
+                    cursor.getString(2), cursor.getString(3), cursor.getString(4),
+                    formater.parse(cursor.getString(5)), formater.parse(cursor.getString(6)));
+            events.add(event);
+        }
+        cursor.close();
+        return events;
+    }
 
     /**
      * Este metodo serve pra verificar se o evento já existe no banco.

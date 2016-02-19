@@ -8,13 +8,14 @@ import java.util.Date;
 public class Lembrete {
 
     private int id;
-    private String content;
+    private String title_lembrete;
     private Date dateLembrete;
     private int  idEvento;
 
-    public Lembrete(int id, String content, Date dateLembrete, int idEvento) {
+    public Lembrete(int id, String title_lembrete, Date dateLembrete, int idEvento) {
         this.id = id;
-        this.content = content;
+        this.title_lembrete = title_lembrete;
+
         this.dateLembrete = dateLembrete;
         this.idEvento = idEvento;
     }
@@ -27,12 +28,12 @@ public class Lembrete {
         this.id = id;
     }
 
-    public int getIdEvento() {
-        return idEvento;
+    public String getTitle_lembrete() {
+        return title_lembrete;
     }
 
-    public void setIdEvento(int idEvento) {
-        this.idEvento = idEvento;
+    public void setTitle_lembrete(String title_lembrete) {
+        this.title_lembrete = title_lembrete;
     }
 
     public Date getDateLembrete() {
@@ -43,11 +44,11 @@ public class Lembrete {
         this.dateLembrete = dateLembrete;
     }
 
-    public String getContent() {
-        return content;
+    public int getIdEvento() {
+        return idEvento;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setIdEvento(int idEvento) {
+        this.idEvento = idEvento;
     }
 }

@@ -1,0 +1,29 @@
+==========================================================================================================================================
+[PROJETO Agregador de Noticias e Eventos UFPI ]     Release Notes - 19-02-2016
+==========================================================================================================================================
+ 
+----------------- Funcionalidades inseridas --------------------------------------
+
+Foram criadas views para mostrar Eventos e mostrar um evento selecionado.
+
+Tela para criar e vizualizar lembretes.
+
+Tela  Sobre com as funcionalidade  colaboradores,compartilhar aplicativo,comunicar erro e ajuda.
+
+
+
+-------------------Para ser ajustado  --------------------------------------------------------------
+
+Ocorrência : Persistencia incompleta
+Ajuste: Necessita concluir etapa de persistencia da classe Lembrete
+
+Ocorrência : funcionalidades propostas na tela Sobre :compartilhar aplicativo,comunicar erro e ajuda.
+Ajuste : Implementar de funcionalidades.
+ 			
+
+Ocorrência : funcionalidade favoritar e compartilhar EVento/Noticia
+Ajuste : Implementar de funcionalidades.
+ 			
+ 			
+
+ 
