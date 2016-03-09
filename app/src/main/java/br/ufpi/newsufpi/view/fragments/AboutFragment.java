@@ -83,14 +83,14 @@ public class AboutFragment  extends BaseFragment{
 
         // Adding child data
         List<String> colaboradores = new ArrayList<String>();
-        colaboradores.add ( "Armando Sousa " + " Gerente");
-        colaboradores.add ("Francisco Wender"+" Desenvolvedor");
-        colaboradores.add("Kátia Cibele"+" Desenvolvedor");
-        colaboradores.add("Luís Guilherme Teixeira"+" Desenvolvedor");
-        colaboradores.add("Ronnie Santos Cardoso"+" Desenvolvedor");
-        colaboradores.add("Ronyerison Dantas Braga"+" Desenvolvedor");
-        colaboradores.add ("Thasciano Lima Carvalho"+" Desenvolvedor");
-        colaboradores.add ("Wemerson Reis"+" Desenvolvedor");
+        colaboradores.add ( "Armando Sousa \n" + " Gerente");
+        colaboradores.add ("Francisco Wender\n"+" Desenvolvedor");
+        colaboradores.add("Kátia Cibele\n"+" Desenvolvedor");
+        colaboradores.add("Luís Guilherme Teixeira\n"+" Desenvolvedor");
+        colaboradores.add("Ronnie Santos Cardoso\n"+" Desenvolvedor");
+        colaboradores.add("Ronyerison Dantas Braga\n"+" Desenvolvedor");
+        colaboradores.add ("Thasciano Lima Carvalho\n"+" Desenvolvedor");
+        colaboradores.add ("Wermeson Reis\n"+" Desenvolvedor");
 
 
         List<String> nowShowing = new ArrayList<String>();

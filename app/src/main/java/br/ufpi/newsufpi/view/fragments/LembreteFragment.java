@@ -104,15 +104,22 @@ public class LembreteFragment extends BaseFragment {
 
         ArrayList<NewsItem> results = new ArrayList<NewsItem>();
         NewsItem newsData = new NewsItem();
-        List<Evento> e = dadosBB.listAllEvents();
-        newsData.setTitulo(e.get(0).getTitle());
-        newsData.setLocal(e.get(0).getLocal());
-        newsData.setCategoria("Notificar uma hora antes");
-        newsData.setDate(e.get(0).getDataInicioString());
-        results.add(newsData);
 
-        // Add some more dummy data for testing
-        return results;
+
+        List<Evento> e = dadosBB.listAllEvents();
+        if(e !=  null) {
+            newsData.setTitulo(e.get(0).getTitle());
+            newsData.setLocal(e.get(0).getLocal());
+            newsData.setCategoria("Notificar uma hora antes");
+            newsData.setDate(e.get(0).getDataInicioString());
+            results.add(newsData);
+
+            return results;
+        }else{
+            return null;
+        }
+
+
     }
 
 
