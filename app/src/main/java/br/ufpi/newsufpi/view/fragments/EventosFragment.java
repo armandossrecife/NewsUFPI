@@ -19,6 +19,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -216,20 +217,23 @@ public class EventosFragment extends livroandroid.lib.fragment.BaseFragment impl
         startDate = doc.select("[itemprop=startDate]").first().attr("content");
         endDate = doc.select("[itemprop=endDate]").first().attr("content");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        StringBuilder content = new StringBuilder();
-        for (Element e : doc.select("p")) {
+        Elements elements = doc.select("p");
+        StringBuilder stringBuilder = new StringBuilder();
+//        Elements aux = new Elements();
+        for (Element e : elements) {
             if (e == null) continue;
-            Element e1 = (e.children().isEmpty()) ? null : e.children().first();
-            if (e1 != null) {
-
-                if (e1.tag().toString().equalsIgnoreCase("a")) {
-                    content.append(e.text()).append("(").append(e1.absUrl("href")).append(" )").append('\n');
-                    continue;
+            if( e.select("img").size() > 0) continue;
+            if(e.select("script")== null || e.select("script").size() == 0){
+                Element x = e.select("a").first();
+                String a = "";
+                if(x != null){
+                    a = "["+x.absUrl("href")+"]";
                 }
+                stringBuilder.append("<p>").append(e.html()).append(a).append("</p>");
+//                stringBuilder.append(e.html()).append("\n");
             }
-            content.append(e.text()).append('\n');
         }
-        description = content.toString();
+        description = stringBuilder.toString();
         try {
             return new Evento(id, title, description, "", "", dateFormat.parse(startDate), dateFormat.parse(endDate), url, 0);
         } catch (ParseException e) {

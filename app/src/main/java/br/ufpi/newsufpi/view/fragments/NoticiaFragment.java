@@ -21,14 +21,13 @@ import livroandroid.lib.fragment.BaseFragment;
 public class NoticiaFragment extends BaseFragment {
     protected Noticia noticia;
 
+    TextView textView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_noticia, container, false);
-        TextView textView = (TextView) view.findViewById(R.id.desc_n);
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
         return view;
     }
-
     // Método público chamado pela activity para atualizar os dados do carro
     public void setNoticia(Noticia noticia) {
 
@@ -37,7 +36,10 @@ public class NoticiaFragment extends BaseFragment {
             //setTextString(R.id.tNome,carro.nome);
             setTextString(R.id.title_n, noticia.getTitle());
             setTextString(R.id.date_n, noticia.getDateString());
-            ((TextView) getActivity().findViewById(R.id.desc_n)).setText(Html.fromHtml(noticia.getContent()));
+            textView = (TextView) getView().findViewById(R.id.desc_n);
+            textView.setClickable(true);
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+            textView.setText(Html.fromHtml(noticia.getContent()));
             if (noticia.getImages().size() > 0) {
                 final ImageView imgView = (ImageView) getView().findViewById(R.id.img_noticia);
                 imgView.setVisibility(ImageView.VISIBLE);

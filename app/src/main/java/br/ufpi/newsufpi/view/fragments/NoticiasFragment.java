@@ -274,9 +274,11 @@ public class NoticiasFragment extends BaseFragment implements Transaction {
         String title = titleEl.text();
         String dateEl = doc.select("[class=documentPublished").first().text();
         String date = dateEl.split(" ")[2].replace("-", "/");
-        StringBuilder content = new StringBuilder();
+        String content;
         ArrayList<String> images = new ArrayList<>();
-        for (Element e : doc.select("p")) {
+        Elements aux = new Elements(), elements = doc.select("p");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Element e : elements) {
             if (e == null) continue;
             Element e1 = (e.children().isEmpty()) ? null : e.children().first();
             if (e1 != null) {
@@ -287,20 +289,25 @@ public class NoticiasFragment extends BaseFragment implements Transaction {
                         st = st.substring(st.lastIndexOf('/') + 1);
                         images.add("http://ufpi.br/images/" + URLEncoder.encode(st, "UTF-8"));
                         continue;
-                    } catch (UnsupportedEncodingException e2) {
-//                    e2.printStackTrace();
-                    }
-                } else if (e1.tag().toString().equalsIgnoreCase("a")) {
-                    content.append(e.text()).append("(").append(e1.absUrl("href")).append(" )").append('\n');
-                    continue;
+                    } catch (UnsupportedEncodingException ignored) {}
                 }
             }
-            content.append(e.text()).append('\n');
+            if(e.select("script") == null || e.select("script").size() == 0) {
+                Element x = e.select("a").first();
+                String a = "";
+                if(x != null){
+                    a = "["+x.absUrl("href")+"]";
+                }
+                stringBuilder.append("<p>").append(e.html()).append(a).append("</p>");
+            }
         }
+
+        content = stringBuilder.toString();
+
         try {
-            return new Noticia(id, title, content.toString(), new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(date), url, 0, images);
+            return new Noticia(id, title, content, new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(date), url, 0, images);
         } catch (ParseException e1) {
-            return new Noticia(id, title, content.toString(), new Date(), url, 0, images);
+            return new Noticia(id, title, content, new Date(), url, 0, images);
         }
     }
 
@@ -316,7 +323,7 @@ public class NoticiasFragment extends BaseFragment implements Transaction {
                 }
                 try {
                     Document doc = Jsoup.connect(url).timeout(20000).data("limit", "10").post();
-                    Elements news = doc.select("[class=tileHeadline");
+                    Elements news = doc.select("[class=tileHeadline]");
                     SparseArray<String> s = new SparseArray<>();
                     String temp;
                     for (Element e : news) {
