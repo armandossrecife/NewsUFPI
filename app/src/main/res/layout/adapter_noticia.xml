@@ -83,7 +83,7 @@
             android:layout_height="24dp"
             android:layout_marginRight="32dp"
             android:tint="@color/black"
-            android:src="@drawable/ic_grade_black_48dp"
+            android:src="@drawable/ic_star_border_black_24dp"
             android:layout_alignParentRight="true" />
 
         <ImageView

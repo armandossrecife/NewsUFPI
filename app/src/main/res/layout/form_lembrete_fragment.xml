@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/buttonCancelaLembrete"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:drawableTint="@android:drawable/ic_menu_save"
+            android:drawable="@android:drawable/ic_menu_save"
             android:textColorHighlight="@android:color/tab_indicator_text"
             android:longClickable="true"
             />
@@ -31,7 +31,7 @@
                 android:text="Concluído"
                 android:id="@+id/buttonConfirmaLembrete"
                 style="@style/Base.TextAppearance.AppCompat.Menu"
-                android:drawableTint="@android:drawable/ic_menu_save"
+                android:drawable="@android:drawable/ic_menu_save"
                 android:textColorHighlight="@android:color/tab_indicator_text"
                 android:textSize="10sp"
                 android:layout_alignParentTop="true"
@@ -63,7 +63,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerLembreteEvento"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        style="@style/TextAppearance.AppCompat.Button"/>
 
     <TextView
         android:layout_width="wrap_content"

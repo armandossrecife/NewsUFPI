@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventosVie
     @Override
     public EventoAdapter.EventosViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Infla a view do layout1
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_noticia, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_evento, viewGroup, false);
 
         CardView cardView = (CardView) view.findViewById(R.id.card_view);
 
@@ -47,37 +48,50 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventosVie
     }
 
     @Override
-    public void onBindViewHolder(final EventosViewHolder holder, final int position) {
+    public void onBindViewHolder(final EventosViewHolder holder, int position) {
         // Atualiza a view
+
+        position = holder.getAdapterPosition();
         Evento e = eventos.get(position);
         holder.tNome.setText(e.getTitle());
-//        holder.tdateIntervalo.setText(e.getDataInicioString()+ " - " + e.getDataFimString());
+        String str = e.getDataInicioString() + " - " + e.getDataFimString();
+        holder.tdateIntervalo.setText(str);
 
         // Click
         if (eventoOnClickListner != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    eventoOnClickListner.onClickEvento(holder.itemView, position); // A variável position é final
+                    eventoOnClickListner.onClickEvento(holder.itemView, holder.getAdapterPosition(), 0);
+                }
+            });
+            holder.share.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    eventoOnClickListner.onClickEvento(holder.itemView, holder.getAdapterPosition(), 1);
                 }
             });
         }
+
     }
 
     public interface EventoOnClickListener {
-        public void onClickEvento(View view, int idx);
+        void onClickEvento(View view, int idx, int op);
     }
 
     // ViewHolder com as views
     public static class EventosViewHolder extends RecyclerView.ViewHolder {
         public TextView tNome;
         public TextView tdateIntervalo;
+        ImageView share;
 
         public EventosViewHolder(View view) {
             super(view);
             // Cria as views para salvar no ViewHolder
             tNome = (TextView) view.findViewById(R.id.text);
             tdateIntervalo = (TextView) view.findViewById(R.id.intervalo);
+            share = (ImageView) view.findViewById(R.id.share);
+
         }
     }
 }

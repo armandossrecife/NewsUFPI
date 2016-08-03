@@ -30,6 +30,8 @@ public class FacadeDao extends SQLiteOpenHelper {
     protected static final String COL_CONTENT_NOTICE = "CONTENT";
     protected static final String COL_DATE_NOTICE = "DATE";
     protected static final String COL_IMAGE_NOTICE = "IMAGE";
+    protected static final String URL = "URL";
+    protected static final String FAVORITE = "FAVORITE";
 
     protected static final String TABLE_NAME_EVENT = "EVENT";
     protected static final String COL_ID_EVENT = "ID";
@@ -56,13 +58,14 @@ public class FacadeDao extends SQLiteOpenHelper {
             + TABLE_NAME_NOTICE + "( " + COL_ID_NOTICE
             + " INTEGER PRIMARY KEY, " + COL_TITLE_NOTICE + " TEXT , "
             + COL_CONTENT_NOTICE + " TEXT , " + COL_DATE_NOTICE + " DATETIME, "
-            + COL_IMAGE_NOTICE + " TEXT );";
+            + COL_IMAGE_NOTICE + " TEXT, " + FAVORITE + " INTEGER," + URL + " TEXT );";
 
     private static final String CREATE_TABLE_EVENT = "CREATE TABLE "
             + TABLE_NAME_EVENT + "( " + COL_ID_EVENT + " INTEGER PRIMARY KEY, "
             + COL_TITLE_EVENT + " TEXT , " + COL_CONTENT_EVENT + " TEXT , "
             + COL_LOCAL_EVENT + " TEXT , " + COL_CATEGORIA_EVENT + " TEXT , "
-            + COL_DATAINICIO_EVENT + " DATETIME , " + COL_DATAFIM_EVENT + " DATETIME );";
+            + COL_DATAINICIO_EVENT + " DATETIME , " + COL_DATAFIM_EVENT + " DATETIME, "
+            + FAVORITE + " INTEGER," + URL + " TEXT );";
 
     private static final String CREATE_TABLE_LEMBRETE = "CREATE TABLE "
             + TABLE_NAME_LEMBRETE + "( " + COL_ID_LEMBRETE + " INTEGER PRIMARY KEY, "
@@ -74,7 +77,7 @@ public class FacadeDao extends SQLiteOpenHelper {
             + TABLE_NAME_IMAGES + "( " + COL_ID_EVENT + " INTEGER, "
             + COL_PATH_IMAGE + " TEXT, "
             + COL_CATEGORY_IMAGE + " TEXT,"
-            +" PRIMARY KEY(" + COL_ID_EVENT + ","+COL_PATH_IMAGE+"));";
+            + " PRIMARY KEY(" + COL_ID_EVENT + "," + COL_PATH_IMAGE + "));";
 
     public FacadeDao(Context context) {
         super(context, "newsufpi_database", null, DATABASE_VERSION);
@@ -109,6 +112,7 @@ public class FacadeDao extends SQLiteOpenHelper {
 
     /**
      * Método que lista todas as noticias.
+     *
      * @return Uma lista de notpicias.
      */
     public List<Noticia> listAllNotices() {
@@ -117,6 +121,7 @@ public class FacadeDao extends SQLiteOpenHelper {
 
     /**
      * Método que insere as notícias no banco de dados.
+     *
      * @param noticias
      * @throws ParseException
      */
@@ -126,12 +131,20 @@ public class FacadeDao extends SQLiteOpenHelper {
 
     /**
      * Método que busca as noticias no banco por determinado texto.
+     *
      * @param text - O texto que está buscando.
      * @return
      * @throws ParseException
      */
     public List<Noticia> findNotices(String text) throws ParseException {
         return noticiaDao.findNotices(text);
+    }
+
+    /**
+     * @param notice
+     */
+    public boolean favoriteNotice(Noticia notice) {
+        return noticiaDao.favoriteNotice(notice);
     }
 
     /**
@@ -158,6 +171,7 @@ public class FacadeDao extends SQLiteOpenHelper {
     public List<Evento> findEvent(String eventTitle) throws ParseException {
         return eventoDao.findEvent(eventTitle);
     }
+
     public List<Evento> findEventId(int eventId) throws ParseException {
         return eventoDao.findEventId(eventId);
     }
@@ -174,6 +188,14 @@ public class FacadeDao extends SQLiteOpenHelper {
      */
     public void deleteAllEvents() {
         eventoDao.deleteAllEvents();
+    }
+
+    /**
+     * @param event
+     */
+
+    public boolean favoriteEvent(Evento event) {
+        return eventoDao.favoriteEvent(event);
     }
 
 
@@ -194,7 +216,6 @@ public class FacadeDao extends SQLiteOpenHelper {
     }
 
 
-
     /**
      * @param lembreteId
      */
@@ -209,4 +230,11 @@ public class FacadeDao extends SQLiteOpenHelper {
         lembreteDao.deleteAllLembretes();
     }
 
+    public Noticia hasNotice(Integer noticeId) throws ParseException {
+        return noticiaDao.hasNotice(noticeId);
+    }
+
+    public Evento hasEvent(Integer id) throws ParseException{
+        return eventoDao.hasEvent(id);
+    }
 }

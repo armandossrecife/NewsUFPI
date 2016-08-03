@@ -7,12 +7,12 @@ import java.util.Date;
 
 /**
  * Entidade de Evento.
- *
+ * <p>
  * Created by thasciano on 23/12/15.
  */
 @SuppressWarnings("ALL")
 public class Evento implements Serializable {
-    public static final String EVENTO_URL = "http://www.json-generator.com/api/json/get/cnBFWYXNea?indent=2";
+    public static final String EVENTO_URL = "http://ufpi.br/agenda-ufpi";
 
     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     /**
@@ -25,6 +25,9 @@ public class Evento implements Serializable {
     private String categoria;
     private Date dataInicio;
     private Date dataFim;
+    private Integer favorito = 0;
+
+    private String url;
 
     /**
      * Construtor.
@@ -36,8 +39,9 @@ public class Evento implements Serializable {
      * @param categoria
      * @param dataInicio
      * @param dataFim
+     * @param favorito
      */
-    public Evento(Integer id, String title, String content, String local, String categoria, Date dataInicio, Date dataFim) {
+    public Evento(Integer id, String title, String content, String local, String categoria, Date dataInicio, Date dataFim, String url, Integer favorito) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -45,6 +49,8 @@ public class Evento implements Serializable {
         this.categoria = categoria;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
+        this.url = url;
+        this.favorito = favorito;
     }
 
     public Date getDataInicio() {
@@ -53,7 +59,7 @@ public class Evento implements Serializable {
 
     public void setDataInicio(String dataInicio) {
         try {
-            this.dataInicio = (Date)format.parse(dataInicio);
+            this.dataInicio = (Date) format.parse(dataInicio);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -65,7 +71,7 @@ public class Evento implements Serializable {
 
     public void setDataFim(String dataFim) {
         try {
-            this.dataFim = (Date)format.parse(dataFim);
+            this.dataFim = (Date) format.parse(dataFim);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -120,6 +126,19 @@ public class Evento implements Serializable {
         this.local = local;
     }
 
+    public Integer getFavorito() {
+        return favorito;
+    }
 
+    public void setFavorito(Integer favorito) {
+        this.favorito = favorito;
+    }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

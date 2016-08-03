@@ -15,6 +15,14 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.SearchView;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.FormElement;
+
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 import br.ufpi.newsufpi.R;
@@ -37,6 +45,7 @@ public class MainActivity extends BaseActivity implements
     private NavDrawerMenuAdapter listAdapter;
     private int menuPosicao;
     private Bundle args = new Bundle();
+    URL url =null;
     /**
      * Cria a Activity principal.
      * @param savedInstanceState
@@ -57,7 +66,16 @@ public class MainActivity extends BaseActivity implements
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setStatusBarBackground(R.color.colorPrimary);
         mNavDrawerFragment.setUp(drawerLayout);
-
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try{
+//                    getPage(null);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
     }
 
 
@@ -122,10 +140,21 @@ public class MainActivity extends BaseActivity implements
             }
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Mudou o texto digitado
                 return false;
             }
         };
+    }
+
+    public Document getPage(String url) throws IOException {
+
+        Connection connection = Jsoup.connect("http://ufpi.br/ultimas-noticias-ufpi");
+        connection.timeout(5000);
+        Document doc = connection.get();
+        FormElement e = (FormElement) doc.body().getElementsByAttributeValue("name","adminForm").first();
+        Element e1 = e.getElementsByAttributeValue("class", "tileItem").first();
+
+        Log.d("Noticias", e1.getElementsByTag("p").first().toString());
+        return doc;
     }
 
     /**
@@ -198,7 +227,11 @@ public class MainActivity extends BaseActivity implements
             fragment = new LembreteFragment();
             fragment.setArguments(args);
             replaceFragment(fragment);
-
+        } else if (position == 3) {
+            fragment = new NoticiasFragment();
+            args.putBoolean("favorites",true);
+            fragment.setArguments(args);
+            replaceFragment(fragment);
             //replaceFragment(new LembreteFragment());
         } else if (position == 4) {
             fragment = new AboutFragment();

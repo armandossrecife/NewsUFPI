@@ -31,7 +31,7 @@ public class ServerConnection {
 
     private void stringRequest(final RequestData requestData) {
 
-        StringRequest request = new StringRequest(Request.Method.GET,
+        StringRequest request = new StringRequest(Request.Method.POST,
                 requestData.getUrl(),
                 new Listener<String>() {
                     @Override

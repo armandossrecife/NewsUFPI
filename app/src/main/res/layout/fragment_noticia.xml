@@ -17,60 +17,62 @@
         card_view:cardElevation="4dp">
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-            >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:id="@+id/title_n"
-            android:textColor="@color/colorPrimary"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="6dp"/>
+                android:id="@+id/title_n"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="6dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/date_n"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:layout_marginBottom="6dp"
                 android:layout_marginRight="6dp"
-                android:textSize="10sp"
-                android:textColor="@color/colorPrimary"
                 android:text="data."
-                android:textStyle="bold"
-                android:layout_gravity="right" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
             <ImageView
-            android:id="@+id/img_noticia"
-            android:layout_width="@dimen/foto_noticia_width"
-            android:layout_height="@dimen/foto_noticia_height"
-            android:layout_gravity="center"
-            android:scaleType="center"
-            android:visibility="gone" />
+                android:id="@+id/img_noticia"
+                android:layout_width="@dimen/foto_noticia_width"
+                android:layout_height="@dimen/foto_noticia_height"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                android:visibility="gone" />
 
             <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="6dp"
-            android:background="@color/gray" />
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/gray" />
 
             <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
-                    android:id="@+id/desc_n"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp" />
+                        android:id="@+id/desc_n"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:clickable="true"
+                        android:autoLink="web"/>
 
                 </LinearLayout>
 

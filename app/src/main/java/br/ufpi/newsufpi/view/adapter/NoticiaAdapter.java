@@ -54,12 +54,16 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.Noticias
     }
 
     @Override
-    public void onBindViewHolder(final NoticiasViewHolder holder, final int position) {
+    public void onBindViewHolder(final NoticiasViewHolder holder, int position) {
         // Atualiza a view
+        //
+        holder.adapterPosition = holder.getAdapterPosition();
         Noticia n = noticias.get(position);
+
         holder.tNome.setText(n.getTitle());
         holder.tdate.setText((CharSequence) n.getDateString());
-        if(n.getImages().size()>0) {
+
+        if (n.getImages().size() > 0) {
             holder.progress.setVisibility(View.VISIBLE);
             holder.img.setVisibility(View.VISIBLE);
 
@@ -74,6 +78,11 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.Noticias
                     holder.progress.setVisibility(View.GONE);
                 }
             });
+
+        } else {
+            holder.img.setVisibility(View.GONE);
+            holder.progress.setVisibility(View.GONE
+            );
         }
 
         // Click
@@ -81,22 +90,37 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.Noticias
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    noticiaOnClickListener.onClickNoticia(holder.itemView, position); // A variável position é final
+                    noticiaOnClickListener.onClickNoticia(holder.itemView, holder.adapterPosition, 0); // A variável position é final
+                }
+            });
+            holder.share.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    noticiaOnClickListener.onClickNoticia(holder.itemView, holder.adapterPosition, 1);
+                }
+            });
+            holder.favoritar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    noticiaOnClickListener.onClickNoticia(holder.itemView, holder.adapterPosition, 2);
                 }
             });
         }
+        holder.favoritar.setImageResource(n.getFavorito()==1?R.drawable.ic_star_black_24dp:R.drawable.ic_star_border_black_24dp);
     }
 
     public interface NoticiaOnClickListener {
-        public void onClickNoticia(View view, int idx);
+        public void onClickNoticia(View view, int idx, int op);
     }
 
     // ViewHolder com as views
     public static class NoticiasViewHolder extends RecyclerView.ViewHolder {
+        int adapterPosition;
         public TextView tNome;
         public TextView tdate;
         ImageView img;
         ProgressBar progress;
+        ImageView share, favoritar;
 
         public NoticiasViewHolder(View view) {
             super(view);
@@ -105,6 +129,8 @@ public class NoticiaAdapter extends RecyclerView.Adapter<NoticiaAdapter.Noticias
             tdate = (TextView) view.findViewById(R.id.date);
             img = (ImageView) view.findViewById(R.id.img);
             progress = (ProgressBar) view.findViewById(R.id.progressImg);
+            share = (ImageView) view.findViewById(R.id.share);
+            favoritar = (ImageView) view.findViewById(R.id.favorite);
         }
     }
 }

@@ -3,6 +3,7 @@ package br.ufpi.newsufpi.persistence;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -15,12 +16,13 @@ import br.ufpi.newsufpi.model.Noticia;
 
 /**
  * Classe responsavel por fazer as operações no banco de dados de noticias.
- *
+ * <p>
  * Created by thasciano on 23/12/15.
  */
 public class NoticiaDao extends FacadeDao {
 
     private static NoticiaDao noticiaDao;
+
     /**
      * @param context
      * @return
@@ -47,20 +49,21 @@ public class NoticiaDao extends FacadeDao {
      */
     public List<Noticia> listAllNotices() {
         List<Noticia> notices = new ArrayList<Noticia>();
-        String[] cols = { COL_ID_NOTICE, COL_TITLE_NOTICE, COL_CONTENT_NOTICE,
-                COL_DATE_NOTICE, COL_IMAGE_NOTICE };
+        String[] cols = {COL_ID_NOTICE, COL_TITLE_NOTICE, COL_CONTENT_NOTICE,
+                COL_DATE_NOTICE, COL_IMAGE_NOTICE, URL, FAVORITE};
         Cursor cursor = getWritableDatabase().query(TABLE_NAME_NOTICE, cols,
                 null, null, null, null, COL_DATE_NOTICE + " DESC");
         while (cursor.moveToNext()) {
             Noticia noticia = new Noticia(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        new Date(cursor.getLong(3))
-                );
-                List<String> imagens = this.listImages(noticia);
-                noticia.setImages(imagens);
-                notices.add(noticia);
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    new Date(cursor.getLong(3)),
+                    cursor.getString(5),
+                    cursor.getInt(6));
+            List<String> imagens = this.listImages(noticia);
+            noticia.setImages(imagens);
+            notices.add(noticia);
 
         }
         cursor.close();
@@ -85,11 +88,12 @@ public class NoticiaDao extends FacadeDao {
         while (cursor.moveToNext()) {
             Noticia noticia = new Noticia(cursor.getInt(0),
                     cursor.getString(1), cursor.getString(2),
-                    new Date(cursor.getLong(3)));
+                    new Date(cursor.getLong(3)), cursor.getString(4), cursor.getInt(5));
             List<String> imagens = this.listImages(noticia);
             noticia.setImages(imagens);
             noticias.add(noticia);
         }
+        cursor.close();
         return noticias;
     }
 
@@ -110,13 +114,14 @@ public class NoticiaDao extends FacadeDao {
                 values.put(COL_TITLE_NOTICE, notice.getTitle());
                 values.put(COL_CONTENT_NOTICE, notice.getContent());
                 values.put(COL_DATE_NOTICE, notice.getDate().getTime());
+                values.put(URL, notice.getUrl());
                 insertImages(notice, db);
                 db.insert(TABLE_NAME_NOTICE, null, values);
                 Log.i("Save", notice.getTitle());
                 count++;
             }
         }
-        db.close();
+//        db.close();
         return count;
     }
 
@@ -153,17 +158,18 @@ public class NoticiaDao extends FacadeDao {
             String path = cursor.getString(1);
             images.add(path);
         }
+        cursor.close();
         return images;
     }
 
     /**
      * Método que busca uma notícia pelo id.
      *
-     * @param noticiaId
-     *            - O id da noticia
+     * @param noticiaId - O id da noticia
      * @return Uma noticia se existir ou nulo senão.
      * @throws ParseException
      */
+
     public Noticia hasNotice(Integer noticiaId) throws ParseException {
         Noticia noticia;
 
@@ -176,10 +182,26 @@ public class NoticiaDao extends FacadeDao {
                     cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getString(2),
-                    new Date(cursor.getLong(3))
+                    new Date(cursor.getLong(3)),
+                    "url",
+                    cursor.getInt(5)
             );
+            cursor.close();
             return noticia;
         }
+        cursor.close();
         return null;
+    }
+
+    public boolean favoriteNotice(Noticia noticia) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        try {
+            sqLiteDatabase.execSQL("UPDATE " + TABLE_NAME_NOTICE
+                    + " SET " + FAVORITE + " = '" + noticia.getFavorito() + "'"
+                    + " WHERE " + COL_ID_NOTICE + " = '" + noticia.getId() + "';");
+            return true;
+        } catch (SQLException e){
+            return false;
+        }
     }
 }

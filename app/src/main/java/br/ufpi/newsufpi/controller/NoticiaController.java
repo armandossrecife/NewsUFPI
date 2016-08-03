@@ -44,4 +44,12 @@ public class NoticiaController {
         return facadeDao.insertNotices(notices);
     }
 
+    public boolean hasNotice(int noticeId) throws ParseException {
+        return facadeDao.hasNotice(noticeId)!= null;
+    }
+
+    public boolean favoriteNotice(Noticia n){
+        return facadeDao.favoriteNotice(n);
+    }
+
 }

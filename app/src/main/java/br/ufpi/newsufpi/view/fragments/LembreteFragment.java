@@ -4,43 +4,31 @@ package br.ufpi.newsufpi.view.fragments;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-
 import android.content.Context;
-
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.graphics.BitmapFactory;
 import android.media.Ringtone;
-
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-
+import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import java.util.ArrayList;
-
 import java.util.List;
 
-
 import br.ufpi.newsufpi.R;
-
 import br.ufpi.newsufpi.model.Evento;
-
 import br.ufpi.newsufpi.persistence.FacadeDao;
 import br.ufpi.newsufpi.view.activity.LembreteActivity;
 import br.ufpi.newsufpi.view.activity.MainActivity;
@@ -150,7 +138,6 @@ public class LembreteFragment extends BaseFragment {
             Uri som = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             Ringtone toque = RingtoneManager.getRingtone(getContext(),som);
 
-
         }catch(Exception e){
 
         }
@@ -160,22 +147,6 @@ public class LembreteFragment extends BaseFragment {
     private void replaceFragment(Fragment frag) {
        this.getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.nav_drawer_container, frag, "TAG").commit();
     }
-
-    public  View onCreateViewInseriLembrete (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-
-
-
-        //chamando formulario
-        final View view = inflater.inflate(R.layout.form_lembrete_fragment, container, false);
-
-
-
-
-        return view;
-
-
-    }
-
 
     //classe que seta os itens
 
@@ -273,7 +244,7 @@ public class LembreteFragment extends BaseFragment {
 
     public Evento findEvento (int idEvento){
         List<Evento> evt = dadosBB.listAllEvents();
-        Evento e = new Evento(0,null,null,null,null,null,null);
+        Evento e = new Evento(0,null,null,null,null,null,null, null, 0);
         for (int i=0;i<evt.size();i++) {
             if(evt.get(i).getId() ==  idEvento){
                 e = evt.get(i);

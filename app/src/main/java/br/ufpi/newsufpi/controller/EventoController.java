@@ -73,4 +73,12 @@ public class EventoController {
     public void deleteAllEvents(){
         facadeDao.deleteAllEvents();
     }
+
+    public boolean favoriteEvent(Evento e) {
+        return facadeDao.favoriteEvent(e);
+    }
+
+    public Evento hasEvent(int id) throws ParseException {
+        return facadeDao.hasEvent(id);
+    }
 }

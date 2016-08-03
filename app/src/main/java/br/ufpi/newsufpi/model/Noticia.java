@@ -13,7 +13,7 @@ import java.util.List;
 @SuppressWarnings("ALL")
 public class Noticia implements Serializable {
     //gerador de json: http://www.json-generator.com/
-        public static final String NOTICIA_URL = "http://www.json-generator.com/api/json/get/cfFSkmKwGG?indent=2";
+    public static final String NOTICIA_URL = "http://ufpi.br/ultimas-noticias-ufpi";
 
     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     private Integer id;
@@ -21,26 +21,33 @@ public class Noticia implements Serializable {
     private String content;
     private Date date;
     private List<String> images;
+    private String url;
+
+    private Integer favorito = 0;
 
     public Noticia() {
-        images =  new ArrayList<String>();
+        images = new ArrayList<String>();
     }
 
     public Noticia(Integer id, String title,
-                   String content, Date date) {
+                   String content, Date date, String url, Integer favorito) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.date = date;
+        this.url = url;
+        this.favorito = favorito;
     }
 
-    public Noticia(Integer id, String title, Date date,
-                   List<String> images, String content) {
+    public Noticia(Integer id, String title, String content, Date date,
+                   String url, Integer favorito, List<String> images) {
         this.id = id;
         this.title = title;
         this.date = date;
         this.images = images;
         this.content = content;
+        this.url = url;
+        this.favorito = favorito;
     }
 
     public Integer getId() {
@@ -78,10 +85,26 @@ public class Noticia implements Serializable {
 
     public void setDate(String date) {
         try {
-            this.date = (Date)format.parse(date);
+            this.date = (Date) format.parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Integer getFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(Integer favorito) {
+        this.favorito = favorito;
     }
 
     public List<String> getImages() {
