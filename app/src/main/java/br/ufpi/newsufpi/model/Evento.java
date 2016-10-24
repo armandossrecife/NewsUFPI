@@ -22,10 +22,10 @@ public class Evento implements Serializable {
     private String title;
     private String content;
     private String local;
-    private String categoria;
-    private Date dataInicio;
-    private Date dataFim;
-    private Integer favorito = 0;
+    private String category;
+    private Date dateBegin;
+    private Date dateEnd;
+    private Integer favorite = 0;
 
     private String url;
 
@@ -36,61 +36,61 @@ public class Evento implements Serializable {
      * @param title
      * @param content
      * @param local
-     * @param categoria
-     * @param dataInicio
-     * @param dataFim
-     * @param favorito
+     * @param category
+     * @param dateBegin
+     * @param dateEnd
+     * @param favorite
      */
-    public Evento(Integer id, String title, String content, String local, String categoria, Date dataInicio, Date dataFim, String url, Integer favorito) {
+    public Evento(Integer id, String title, String content, String local, String category, Date dateBegin, Date dateEnd, String url, Integer favorite) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.local = local;
-        this.categoria = categoria;
-        this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
+        this.category = category;
+        this.dateBegin = dateBegin;
+        this.dateEnd = dateEnd;
         this.url = url;
-        this.favorito = favorito;
+        this.favorite = favorite;
     }
 
-    public Date getDataInicio() {
-        return dataInicio;
+    public Date getDateBegin() {
+        return dateBegin;
     }
 
-    public void setDataInicio(String dataInicio) {
+    public void setDateBegin(String dateBegin) {
         try {
-            this.dataInicio = (Date) format.parse(dataInicio);
+            this.dateBegin = (Date) format.parse(dateBegin);
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
-    public Date getDataFim() {
-        return dataFim;
+    public Date getDateEnd() {
+        return dateEnd;
     }
 
-    public void setDataFim(String dataFim) {
+    public void setDateEnd(String dateEnd) {
         try {
-            this.dataFim = (Date) format.parse(dataFim);
+            this.dateEnd = (Date) format.parse(dateEnd);
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
-    public String getDataInicioString() {
-        return format.format(getDataInicio());
+    public String getDateBeginString() {
+        return format.format(getDateBegin());
     }
 
-    public String getDataFimString() {
-        return format.format(getDataFim());
+    public String getDateEndString() {
+        return format.format(getDateEnd());
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
 
@@ -126,12 +126,12 @@ public class Evento implements Serializable {
         this.local = local;
     }
 
-    public Integer getFavorito() {
-        return favorito;
+    public Integer getFavorite() {
+        return favorite;
     }
 
-    public void setFavorito(Integer favorito) {
-        this.favorito = favorito;
+    public void setFavorite(Integer favorite) {
+        this.favorite = favorite;
     }
 
     public String getUrl() {
