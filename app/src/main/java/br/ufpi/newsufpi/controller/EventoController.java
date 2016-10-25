@@ -59,7 +59,7 @@ public class EventoController {
     }
 
     /**
-     * Deleta um evento.
+     * Deleta um evento com base no id.
      *
      * @param eventId
      */

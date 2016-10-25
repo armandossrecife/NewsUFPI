@@ -41,11 +41,9 @@ public class NoticiaDao extends FacadeDao {
         super(context);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * br.ufpi.nti.newsufpiapp.commons.persistence.FacadeDao#listAllNotices()
+    /**
+     * Lista todas as notícias
+     * @return
      */
     public List<Noticia> listAllNotices() {
         List<Noticia> notices = new ArrayList<Noticia>();
@@ -70,12 +68,11 @@ public class NoticiaDao extends FacadeDao {
         return notices;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * br.ufpi.nti.newsufpiapp.commons.persistence.FacadeDao#findNotices(java
-     * .lang.String)
+    /**
+     * Lista as notícias de acordo com o texto buscado.
+     * @param text - O texto que está buscando.
+     * @return
+     * @throws ParseException
      */
     public List<Noticia> findNotices(String text) throws ParseException {
         List<Noticia> noticias = new ArrayList<Noticia>();
@@ -97,12 +94,11 @@ public class NoticiaDao extends FacadeDao {
         return noticias;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * br.ufpi.nti.newsufpiapp.commons.persistence.FacadeDao#insertNotices(java
-     * .util.List)
+    /**
+     * Salva uma lista de notícias
+     * @param noticias
+     * @return
+     * @throws ParseException
      */
     public int insertNotices(List<Noticia> noticias) throws ParseException {
         int count = 0;

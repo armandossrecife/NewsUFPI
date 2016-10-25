@@ -83,8 +83,14 @@ public class FacadeDao extends SQLiteOpenHelper {
         super(context, "newsufpi_database", null, DATABASE_VERSION);
     }
 
+    /**
+     * Retorna a instancia atual da classe ou cria uma.
+     * @param context
+     * @return
+     */
     public static FacadeDao getInstance(Context context) {
         if (facadeDao == null) {
+
             facadeDao = new FacadeDao(context);
         }
         noticiaDao = NoticiaDao.getInstance(context);
@@ -224,7 +230,7 @@ public class FacadeDao extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Deleta todos os lembretes.
      */
     public void deleteAllLembretes() {
         lembreteDao.deleteAllLembretes();

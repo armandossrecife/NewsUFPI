@@ -46,14 +46,14 @@ public class EventoDao extends FacadeDao {
         for (Evento event : events) {
             if ((event.getId() != null) && (hasEvent(event.getId()) == null)) {
                 ContentValues values = new ContentValues();
-                values.put(COL_DATAINICIO_EVENT, event.getDataInicio().getTime());
+                values.put(COL_DATAINICIO_EVENT, event.getDateBegin().getTime());
                 values.put(COL_ID_EVENT, event.getId());
                 values.put(COL_LOCAL_EVENT, event.getLocal());
                 values.put(COL_TITLE_EVENT, event.getTitle());
                 values.put(COL_CONTENT_EVENT, event.getContent());
 
-                values.put(COL_CATEGORIA_EVENT, event.getCategoria());
-                values.put(COL_DATAFIM_EVENT, event.getDataFim().getTime());
+                values.put(COL_CATEGORIA_EVENT, event.getCategory());
+                values.put(COL_DATAFIM_EVENT, event.getDateEnd().getTime());
                 values.put(URL, event.getUrl());
                 db.insert(TABLE_NAME_EVENT, null, values);
                 Log.i("Save", event.getTitle());
@@ -174,7 +174,7 @@ public class EventoDao extends FacadeDao {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         try {
             sqLiteDatabase.execSQL("UPDATE " + TABLE_NAME_NOTICE
-                    + " SET " + FAVORITE + " = '" + event.getFavorito() + "'"
+                    + " SET " + FAVORITE + " = '" + event.getFavorite() + "'"
                     + " WHERE " + COL_ID_EVENT + " = '" + event.getId() + "';");
             return true;
         } catch (SQLException e) {

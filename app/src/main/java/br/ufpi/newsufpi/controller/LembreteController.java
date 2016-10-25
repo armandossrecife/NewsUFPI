@@ -27,7 +27,7 @@ public class LembreteController {
     }
 
     /**
-     * Insere uma lista de eventos.
+     * Insere uma lista de lembretes.
      *
      * @param lembretes
      * @throws ParseException
@@ -47,7 +47,7 @@ public class LembreteController {
     }
 
     /**
-     * Deleta um lembrete.
+     * Deleta um lembrete com base no id.
      * @param lembreteId
      */
     public void deleteLembrete(Integer lembreteId){

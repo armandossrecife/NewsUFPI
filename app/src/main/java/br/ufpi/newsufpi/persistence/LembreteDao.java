@@ -53,7 +53,7 @@ public class LembreteDao extends FacadeDao {
 
 
     /**
-     * @return retorna todos eventos
+     * @return retorna todos os lembretes
      * @throws ParseException
      */
     public List<Lembrete> listAllLembrete() throws ParseException {
