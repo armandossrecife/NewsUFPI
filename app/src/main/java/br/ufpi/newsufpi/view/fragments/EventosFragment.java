@@ -326,7 +326,7 @@ public class EventosFragment extends livroandroid.lib.fragment.BaseFragment impl
                             Document doc = conn.get();
                             Evento ev = docToEvento(doc);
                             if (ev != null) {
-                                ev.setCategoria(info.categoria);
+                                ev.setCategory(info.categoria);
                                 ev.setLocal(info.local);
                                 eventos.add(ev);
                             }

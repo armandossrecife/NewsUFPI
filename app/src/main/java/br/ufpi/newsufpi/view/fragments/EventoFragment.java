@@ -31,7 +31,7 @@ public class EventoFragment extends livroandroid.lib.fragment.BaseFragment {
         if(evento != null) {
             this.noticia = noticia;
             setTextString(R.id.title_e, evento.getTitle());
-            setTextString(R.id.date_intervalo, evento.getDataInicioString() + " - " + evento.getDataFimString());
+            setTextString(R.id.date_intervalo, evento.getDateBeginString() + " - " + evento.getDateEndString());
             ((TextView)getActivity().findViewById(R.id.desc_e)).setText(Html.fromHtml(evento.getContent()));
         }
     }

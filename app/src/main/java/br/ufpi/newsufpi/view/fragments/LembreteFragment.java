@@ -99,7 +99,7 @@ public class LembreteFragment extends BaseFragment {
             newsData.setTitulo(e.get(0).getTitle());
             newsData.setLocal(e.get(0).getLocal());
             newsData.setCategoria("Notificar uma hora antes");
-            newsData.setDate(e.get(0).getDataInicioString());
+            newsData.setDate(e.get(0).getDateBeginString());
             results.add(newsData);
 
             return results;

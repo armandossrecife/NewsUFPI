@@ -54,7 +54,7 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventosVie
         position = holder.getAdapterPosition();
         Evento e = eventos.get(position);
         holder.tNome.setText(e.getTitle());
-        String str = e.getDataInicioString() + " - " + e.getDataFimString();
+        String str = e.getDateBeginString() + " - " + e.getDateEndString();
         holder.tdateIntervalo.setText(str);
 
         // Click

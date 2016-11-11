@@ -135,12 +135,12 @@ public class FormLembreteFragment extends BaseFragment {
         }
         intent.putExtra("message", valor);
         intent.putExtra("id", eventoSelecionado.getId());
-        if (new Date(eventoSelecionado.getDataInicio().getTime() - when).before(new Date())) {
+        if (new Date(eventoSelecionado.getDateBegin().getTime() - when).before(new Date())) {
             Toast.makeText(getContext(), "Não é possível configurar alarme para um evento passado", Toast.LENGTH_SHORT).show();
         } else {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), (int) System.currentTimeMillis(), intent, 0);
             NotificationService.alarms.put(eventoSelecionado.getId().toString(), pendingIntent);
-            manager.set(AlarmManager.RTC_WAKEUP, eventoSelecionado.getDataInicio().getTime() - when, pendingIntent);
+            manager.set(AlarmManager.RTC_WAKEUP, eventoSelecionado.getDateBegin().getTime() - when, pendingIntent);
         }
     }
 
@@ -161,7 +161,7 @@ public class FormLembreteFragment extends BaseFragment {
                 }
 
                 localView.setText(eventoSelecionado.getLocal());
-                dataView.setText(eventoSelecionado.getDataInicioString());
+                dataView.setText(eventoSelecionado.getDateBeginString());
 
             } catch (Exception e) {
 
@@ -179,6 +179,4 @@ public class FormLembreteFragment extends BaseFragment {
     private void replaceFragment(Fragment frag) {
         this.getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.nav_drawer_container, frag, "TAG").commit();
     }
-
-
 }
