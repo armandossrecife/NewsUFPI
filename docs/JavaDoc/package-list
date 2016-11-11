@@ -1,0 +1,9 @@
+br.ufpi.newsufpi
+br.ufpi.newsufpi.broadcastReceiver
+br.ufpi.newsufpi.controller
+br.ufpi.newsufpi.model
+br.ufpi.newsufpi.persistence
+br.ufpi.newsufpi.util
+br.ufpi.newsufpi.view.activity
+br.ufpi.newsufpi.view.adapter
+br.ufpi.newsufpi.view.fragments
