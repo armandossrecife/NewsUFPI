@@ -24,6 +24,7 @@ public class FacadeDao extends SQLiteOpenHelper {
 
     protected static final Integer DATABASE_VERSION = 3;
 
+    //strings para a criação da tabela notícia
     protected static final String TABLE_NAME_NOTICE = "NOTICE";
     protected static final String COL_ID_NOTICE = "ID";
     protected static final String COL_TITLE_NOTICE = "TITLE";
@@ -33,6 +34,7 @@ public class FacadeDao extends SQLiteOpenHelper {
     protected static final String URL = "URL";
     protected static final String FAVORITE = "FAVORITE";
 
+    //strings para a criação da tabela eventos
     protected static final String TABLE_NAME_EVENT = "EVENT";
     protected static final String COL_ID_EVENT = "ID";
     protected static final String COL_TITLE_EVENT = "TITLE";
@@ -42,6 +44,7 @@ public class FacadeDao extends SQLiteOpenHelper {
     protected static final String COL_DATAINICIO_EVENT = "DATAINICIO";
     protected static final String COL_DATAFIM_EVENT = "DATAFIM";
 
+    //strings para a criação da tabela lembrete
     //deve ser melhorado posteriormente para usar id de evento como chave estrangeiro e fazer conexao entre tabelas
     protected static final String TABLE_NAME_LEMBRETE = "LEMBRETE";
     protected static final String COL_ID_LEMBRETE = "ID";
@@ -50,16 +53,19 @@ public class FacadeDao extends SQLiteOpenHelper {
     protected static final String COL_ID_EVENT_LEMBRETE = "IDEVENT";
 
 
+    //strings para a criação da tabela imagens
     protected static final String TABLE_NAME_IMAGES = "IMAGES";
     protected static final String COL_PATH_IMAGE = "PATH";
     protected static final String COL_CATEGORY_IMAGE = "CATEGORY";
 
+    //string para a criação da tabela notícia
     private static final String CREATE_TABLE_NOTICE = "CREATE TABLE "
             + TABLE_NAME_NOTICE + "( " + COL_ID_NOTICE
             + " INTEGER PRIMARY KEY, " + COL_TITLE_NOTICE + " TEXT , "
             + COL_CONTENT_NOTICE + " TEXT , " + COL_DATE_NOTICE + " DATETIME, "
             + COL_IMAGE_NOTICE + " TEXT, " + FAVORITE + " INTEGER," + URL + " TEXT );";
 
+    //string para a criação da tabela evento
     private static final String CREATE_TABLE_EVENT = "CREATE TABLE "
             + TABLE_NAME_EVENT + "( " + COL_ID_EVENT + " INTEGER PRIMARY KEY, "
             + COL_TITLE_EVENT + " TEXT , " + COL_CONTENT_EVENT + " TEXT , "
@@ -67,12 +73,14 @@ public class FacadeDao extends SQLiteOpenHelper {
             + COL_DATAINICIO_EVENT + " DATETIME , " + COL_DATAFIM_EVENT + " DATETIME, "
             + FAVORITE + " INTEGER," + URL + " TEXT );";
 
+    //string para a criação da tabela lembrete
     private static final String CREATE_TABLE_LEMBRETE = "CREATE TABLE "
             + TABLE_NAME_LEMBRETE + "( " + COL_ID_LEMBRETE + " INTEGER PRIMARY KEY, "
             + COL_TITLE_LEMBRETE + " TEXT , " + COL_DATE_LEMBRETE + " DATETIME , "
             + COL_ID_EVENT_LEMBRETE + "TEXT );";
 
 
+    //string para a criação da tabela imagens
     private static final String CREATE_TABLE_IMAGES = "CREATE TABLE "
             + TABLE_NAME_IMAGES + "( " + COL_ID_EVENT + " INTEGER, "
             + COL_PATH_IMAGE + " TEXT, "
@@ -90,7 +98,6 @@ public class FacadeDao extends SQLiteOpenHelper {
      */
     public static FacadeDao getInstance(Context context) {
         if (facadeDao == null) {
-
             facadeDao = new FacadeDao(context);
         }
         noticiaDao = NoticiaDao.getInstance(context);
